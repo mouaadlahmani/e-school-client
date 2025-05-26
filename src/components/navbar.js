@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from "../assets/images/logo.png"
 import axios from "../api/axios"
 import { IoChevronDown } from 'react-icons/io5'
+import morocco from "../assets/images/morroco.webp";
+import french from "../assets/images/french.webp";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -137,41 +139,51 @@ const Navbar = () => {
               <div
                 ref={profileToggleRef}
                 onClick={() => setProfileOpen((prev) => !prev)}
-                className="flex flex-col justify-center items-center cursor-pointer"
+                className="flex flex-col items-center justify-center cursor-pointer group"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 512 512">
-                  <path d="M337.711 241.3a16 16 0 0 0-11.461 3.988c-18.739 16.561-43.688 25.682-70.25 25.682s-51.511-9.121-70.25-25.683a16.007 16.007 0 0 0-11.461-3.988c-78.926 4.274-140.752 63.672-140.752 135.224v107.152C33.537 499.293 46.9 512 63.332 512h385.336c16.429 0 29.8-12.707 29.8-28.325V376.523c-.005-71.552-61.831-130.95-140.757-135.223zM446.463 480H65.537V376.523c0-52.739 45.359-96.888 104.351-102.8C193.75 292.63 224.055 302.97 256 302.97s62.25-10.34 86.112-29.245c58.992 5.91 104.351 50.059 104.351 102.8zM256 234.375a117.188 117.188 0 1 0-117.188-117.187A117.32 117.32 0 0 0 256 234.375zM256 32a85.188 85.188 0 1 1-85.188 85.188A85.284 85.284 0 0 1 256 32z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 512 512"
+                  className="text-gray-600 group-hover:text-pink-500 transition duration-200"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M337.711 241.3a16 16 0 0 0-11.461 3.988c-18.739 16.561-43.688 25.682-70.25 25.682s-51.511-9.121-70.25-25.683a16.007 16.007 0 0 0-11.461-3.988c-78.926 4.274-140.752 63.672-140.752 135.224v107.152C33.537 499.293 46.9 512 63.332 512h385.336c16.429 0 29.8-12.707 29.8-28.325V376.523c-.005-71.552-61.831-130.95-140.757-135.223zM446.463 480H65.537V376.523c0-52.739 45.359-96.888 104.351-102.8C193.75 292.63 224.055 302.97 256 302.97s62.25-10.34 86.112-29.245c58.992 5.91 104.351 50.059 104.351 102.8zM256 234.375a117.188 117.188 0 1 0-117.188-117.187A117.32 117.32 0 0 0 256 234.375zM256 32a85.188 85.188 0 1 1-85.188 85.188A85.284 85.284 0 0 1 256 32z"
+                  />
                 </svg>
-                <span className="text-xs font-semibold mt-1">Profile</span>
+                <span className="text-xs font-medium mt-1 text-gray-700 group-hover:text-pink-500 transition">
+                  Profile
+                </span>
               </div>
 
               {/* Dropdown Menu */}
               {profileOpen && (
                 <div
                   ref={dropdownRef}
-                  className="bg-white z-20 shadow-lg py-6 px-6 sm:min-w-[320px] absolute right-0 top-14"
+                  className="absolute right-0 mt-3 bg-white rounded-xl shadow-xl w-56 z-30 p-5 transition-all animate-fade-in"
                 >
-                  <h6 className="font-semibold text-sm">Welcome</h6>
-                  <p className="text-sm text-slate-500 mt-1">To access account and manage orders</p>
                   <button
+                    onClick={() => navigate("/admin")}
                     type="button"
-                    className="bg-transparent border border-gray-300 hover:border-pink-500 px-4 py-2 mt-4 text-sm text-pink-500 font-semibold"
+                    className="w-full bg-pink-500 text-white py-2 rounded-lg text-sm font-semibold hover:bg-pink-600 transition"
                   >
-                    LOGIN / SIGNUP
+                    Connexion
                   </button>
-                  <hr className="border-b-0 my-4 border-gray-300" />
-                  <ul className="space-y-1.5">
-                    <li><a href="#" className="text-sm text-slate-500 hover:text-pink-500">Order</a></li>
-                    <li><a href="#" className="text-sm text-slate-500 hover:text-pink-500">Wishlist</a></li>
-                    <li><a href="#" className="text-sm text-slate-500 hover:text-pink-500">Gift Cards</a></li>
-                    <li><a href="#" className="text-sm text-slate-500 hover:text-pink-500">Contact Us</a></li>
-                  </ul>
-                  <hr className="border-b-0 my-4 border-gray-300" />
-                  <ul className="space-y-1.5">
-                    <li><a href="#" className="text-sm text-slate-500 hover:text-pink-500">Coupons</a></li>
-                    <li><a href="#" className="text-sm text-slate-500 hover:text-pink-500">Saved Credits</a></li>
-                    <li><a href="#" className="text-sm text-slate-500 hover:text-pink-500">Saved Addresses</a></li>
-                  </ul>
+
+                  <div className="border-t border-gray-200 my-4"></div>
+
+                  <div className="flex justify-between">
+                    <button className="flex items-center gap-2 text-sm text-gray-700 hover:text-pink-500 transition">
+                      <img src={morocco} alt="Arabic" className="w-5 h-5 rounded-full" />
+                      <span>العربية</span>
+                    </button>
+                    <button className="flex items-center gap-2 text-sm text-gray-700 hover:text-pink-500 transition">
+                      <img src={french} alt="Français" className="w-5 h-5 rounded-full" />
+                      <span>Français</span>
+                    </button>
+                  </div>
                 </div>
               )}
             </li>
