@@ -56,41 +56,53 @@ const Levels = () => {
           <p className="text-gray-600 mt-2 text-lg">Explore all subjects organized by academic levels</p>
         </div>
 
-        {/* Academic Levels Grid */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {levelsData.map((level) => (
-            <div
-              key={level._id}
-              className="bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition"
-            >
-              {/* Academic Level Header */}
-              <div
-                onClick={() => navigate(`/subjects/${level._id}`)}
-                className="flex items-center gap-2 cursor-pointer mb-4 group"
-              >
-                <MdOutlineFolderCopy className="text-2xl text-[#4335A7] group-hover:scale-110 transition" />
-                <h2 className="text-xl font-semibold text-[#4335A7] group-hover:underline">{level.name}</h2>
-              </div>
+        {/* Tree-like layout - Two columns */}
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {levelsData.map((level) => (
+              <div key={level._id} className="bg-white">
+                {/* Academic Level Header */}
+                <div
+                  onClick={() => navigate(`/subjects/${level._id}`)}
+                  className="flex items-center gap-3 p-4 bg-[#4335A7] text-white rounded-lg cursor-pointer hover:bg-[#3730a3] transition-colors shadow-md"
+                >
+                  {getSubjectIcon({ ...level, icon: level.icon })}
+                  <h2 className="text-xl font-semibold">{level.name}</h2>
+                </div>
 
-              {/* Subjects List */}
-              <div className="space-y-2">
-                {level.subjects.length > 0 ? (
-                  level.subjects.map((subject) => (
-                    <div
-                      key={subject._id}
-                      onClick={() => navigate(`/title/${subject._id}`)}
-                      className="flex items-center gap-2 text-gray-700 hover:text-[#4335A7] cursor-pointer transition"
-                    >
-                      {getSubjectIcon(subject)}
-                      <span className="text-sm">{subject.name}</span>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-sm italic text-gray-400 ml-1">No subjects found</p>
+                {/* Subjects with tree structure */}
+                {level.subjects.length > 0 && (
+                  <div className="relative mt-4 ml-8">
+                    {/* Vertical line from level */}
+                    <div className="absolute -left-4 top-0 w-px h-full bg-gray-300"></div>
+                    
+                    {level.subjects.map((subject, idx) => (
+                      <div key={idx} className="relative flex items-center mb-3">
+                        {/* Horizontal line to subject */}
+                        <div className="absolute -left-4 top-1/2 w-4 h-px bg-gray-300"></div>
+                        
+                        {/* Subject item */}
+                        <div
+                          onClick={() => navigate(`/title/${subject._id}`)}
+                          className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-100 hover:border-[#4335A7] transition-all shadow-sm min-w-0 flex-1"
+                        >
+                          {getSubjectIcon(subject)}
+                          <span className="text-gray-700 font-medium">{subject.name}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* No subjects message */}
+                {level.subjects.length === 0 && (
+                  <div className="ml-8 mt-4 p-3 text-gray-400 italic text-sm">
+                    No subjects found
+                  </div>
                 )}
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </>

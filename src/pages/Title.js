@@ -3,6 +3,7 @@ import axios from "../api/axios";
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/navbar';
 import { FaRegListAlt, FaFolder, FaFolderOpen, FaFilePdf } from 'react-icons/fa';
+import { SUBJECT_ICONS } from './admin/SubjectIconSelector';
 
 const BASE_URL = "https://e-school-api.vercel.app"
 
@@ -58,6 +59,17 @@ const Title = () => {
         }
     };
 
+    const getTitleIcon = (subject) => {
+        if (subject.icon) {
+            const iconData = SUBJECT_ICONS.find(icon => icon.name === subject.icon);
+            if (iconData) {
+                const IconComponent = iconData.icon;
+                return <IconComponent className="text-[#4335A7] text-xl" />;
+            }
+        }
+        return <FaRegListAlt className="text-[#4335A7] text-xl" />;
+    };
+
     return (
         <>
             <Navbar />
@@ -75,7 +87,7 @@ const Title = () => {
                             <div key={title._id} className="bg-gray-50 border border-gray-200 rounded-xl shadow-sm p-6">
                                 {/* Title Block */}
                                 <div className="flex items-center gap-3 mb-4">
-                                    <FaRegListAlt className="text-2xl text-[#4335A7]" />
+                                    {getTitleIcon(title)}
                                     <h2 className="text-2xl font-semibold text-[#4335A7]">{title.name}</h2>
                                 </div>
 

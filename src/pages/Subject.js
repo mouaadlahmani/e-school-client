@@ -7,6 +7,7 @@ import { SUBJECT_ICONS } from './admin/SubjectIconSelector';
 
 const Subject = () => {
   const [subjects, setSubjects] = useState([]);
+  const [academicLevelName, setAcademicLevelName] = useState("Academic Level");
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -15,6 +16,14 @@ const Subject = () => {
       try {
         const subjectsRes = await axios.get(`academic/subjects/${id}`);
         setSubjects(subjectsRes.data);
+        
+        // Fetch academic level name for header
+        try {
+          const academicRes = await axios.get(`academic/${id}`);
+          setAcademicLevelName(academicRes.data.name);
+        } catch (error) {
+          console.log('Could not fetch academic level name');
+        }
       } catch (error) {
         console.error('Error fetching subjects:', error.message);
       }
@@ -27,10 +36,10 @@ const Subject = () => {
       const iconData = SUBJECT_ICONS.find(icon => icon.name === subject.icon);
       if (iconData) {
         const IconComponent = iconData.icon;
-        return <IconComponent className="text-[#4335A7] text-xl" />;
+        return <IconComponent className="text-[#4335A7] text-lg" />;
       }
     }
-    return <FaBookOpen className="text-[#4335A7] text-xl" />;
+    return <FaBookOpen className="text-[#4335A7] text-lg" />;
   };
   
   return (
@@ -43,24 +52,48 @@ const Subject = () => {
           <p className="text-gray-600 mt-2 text-lg">Browse subjects under this academic level</p>
         </div>
 
-        {/* Subject List */}
-        <div className="max-w-5xl mx-auto grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {subjects.length > 0 ? (
-            subjects.map((subject) => (
-              <div
-                key={subject._id}
-                onClick={() => navigate(`/title/${subject._id}`)}
-                className="flex items-center gap-3 bg-gray-50 border border-gray-200 p-4 rounded-xl shadow-sm hover:shadow-md cursor-pointer transition"
-              >
-                {getSubjectIcon(subject)}
-                <span className="text-gray-800 font-medium">{subject.name}</span>
-              </div>
-            ))
-          ) : (
-            <div className="col-span-full text-center text-gray-500 italic">
-              No subjects found for this academic level.
+        {/* Tree-like layout */}
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white">
+            {/* Academic Level Header */}
+            <div className="flex items-center gap-3 p-4 bg-[#4335A7] text-white rounded-lg shadow-md mb-4">
+              <FaBookOpen className="text-2xl" />
+              <h2 className="text-xl font-semibold">{academicLevelName}</h2>
             </div>
-          )}
+
+            {/* Subjects with tree structure */}
+            {subjects.length > 0 && (
+              <div className="relative ml-8">
+                {/* Vertical line from academic level */}
+                <div className="absolute -left-4 top-0 w-px h-full bg-gray-300"></div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {subjects.map((subject, idx) => (
+                    <div key={idx} className="relative flex items-center">
+                      {/* Horizontal line to subject */}
+                      <div className="absolute -left-4 top-1/2 w-4 h-px bg-gray-300"></div>
+                      
+                      {/* Subject item */}
+                      <div
+                        onClick={() => navigate(`/title/${subject._id}`)}
+                        className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-100 hover:border-[#4335A7] transition-all shadow-sm w-full"
+                      >
+                        {getSubjectIcon(subject)}
+                        <span className="text-gray-700 font-medium">{subject.name}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* No subjects message */}
+            {subjects.length === 0 && (
+              <div className="ml-8 mt-4 p-4 text-gray-400 italic text-center">
+                No subjects found for this academic level.
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

@@ -7,6 +7,7 @@ import { AiOutlineHome } from "react-icons/ai";
 import { BiWorld } from "react-icons/bi";
 import { FaFolderOpen } from 'react-icons/fa';
 import { MdOutlineFolderCopy } from 'react-icons/md';
+import { SUBJECT_ICONS } from './admin/SubjectIconSelector';
 
 const Country = () => {
   const [levelsData, setLevelsData] = useState([]);
@@ -40,6 +41,17 @@ const Country = () => {
     fetchLevels();
   }, [id]);
 
+  const getLevelIcon = (subject) => {
+    if (subject.icon) {
+      const iconData = SUBJECT_ICONS.find(icon => icon.name === subject.icon);
+      if (iconData) {
+        const IconComponent = iconData.icon;
+        return <IconComponent className="text-[#4335A7] text-lg" />;
+      }
+    }
+    return <FaFolderOpen className="text-[#4335A7] text-lg" />;
+  };
+
   return (
     <>
       <Navbar />
@@ -65,41 +77,53 @@ const Country = () => {
           <p className="text-gray-600 mt-2 text-lg">Select an education level to explore subjects and resources.</p>
         </div>
 
-        {/* Levels Display */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {levelsData.map((level) => (
-            <div
-              key={level._id}
-              className="bg-gray-50 rounded-xl border border-gray-200 hover:shadow-lg transition p-6"
-            >
-              {/* Level Header */}
-              <div
-                onClick={() => navigate(`/level/${level._id}`)}
-                className="flex items-center gap-3 cursor-pointer mb-4 hover:underline"
-              >
-                <FaFolderOpen className="text-2xl text-[#4335A7]" />
-                <h2 className="text-xl font-semibold text-[#4335A7]">{level.name}</h2>
-              </div>
+        {/* Tree-like layout - Two columns */}
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {levelsData.map((level) => (
+              <div key={level._id} className="bg-white">
+                {/* Education Level Header */}
+                <div
+                  onClick={() => navigate(`/level/${level._id}`)}
+                  className="flex items-center gap-3 p-4 bg-[#4335A7] text-white rounded-lg cursor-pointer hover:bg-[#3730a3] transition-colors shadow-md"
+                >
+                  {getLevelIcon({ ...level, icon: level.icon })}
+                  <h2 className="text-xl font-semibold">{level.name}</h2>
+                </div>
 
-              {/* Academic Levels */}
-              <div className="ml-2 space-y-2">
-                {level.academiclevels.length > 0 ? (
-                  level.academiclevels.map((academic, idx) => (
-                    <div
-                      onClick={() => navigate(`/subjects/${academic._id}`)}
-                      key={idx}
-                      className="flex items-center gap-2 text-gray-700 hover:text-[#4335A7] cursor-pointer transition"
-                    >
-                      <MdOutlineFolderCopy className="text-lg" />
-                      <span className="text-sm">{academic.name}</span>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-sm italic text-gray-400">No academic levels available</p>
+                {/* Academic Levels with tree structure */}
+                {level.academiclevels.length > 0 && (
+                  <div className="relative mt-4 ml-8">
+                    {/* Vertical line from level */}
+                    <div className="absolute -left-4 top-0 w-px h-full bg-gray-300"></div>
+                    
+                    {level.academiclevels.map((academic, idx) => (
+                      <div key={idx} className="relative flex items-center mb-3">
+                        {/* Horizontal line to academic level */}
+                        <div className="absolute -left-4 top-1/2 w-4 h-px bg-gray-300"></div>
+                        
+                        {/* Academic Level item */}
+                        <div
+                          onClick={() => navigate(`/subjects/${academic._id}`)}
+                          className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-100 hover:border-[#4335A7] transition-all shadow-sm min-w-0 flex-1"
+                        >
+                          {getLevelIcon(academic)}
+                          <span className="text-gray-700 font-medium">{academic.name}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* No academic levels message */}
+                {level.academiclevels.length === 0 && (
+                  <div className="ml-8 mt-4 p-3 text-gray-400 italic text-sm">
+                    No academic levels available
+                  </div>
                 )}
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </>

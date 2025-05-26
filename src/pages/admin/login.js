@@ -3,6 +3,8 @@ import axios from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/AuthProvider';
 import { jwtDecode } from 'jwt-decode';
+import logo from "../../assets/images/logo.png";
+import { motion } from "framer-motion";
 
 const LOGIN_URL = 'auth/login';
 
@@ -37,7 +39,7 @@ const Login = () => {
                 setError('Login failed: Invalid response');
             }
         } catch (err) {
-            if (err.response && err.response.status === 401) {
+            if (err.response?.status === 401) {
                 setError('Invalid username or password');
             } else {
                 setError('Something went wrong. Please try again.');
@@ -48,24 +50,38 @@ const Login = () => {
     };
 
     return (
-        <>
-            <div className="min-h-screen flex justify-center items-center bg-gray-50 px-4">
-                <form
-                    onSubmit={handleSubmit}
-                    className="w-full max-w-md bg-white shadow-md rounded-xl p-8 border border-gray-200"
-                >
-                    <h2 className="text-3xl font-bold text-center text-[#4335A7] mb-6">Login</h2>
+        <div className="min-h-screen bg-gradient-to-br from-[#e0e7ff] to-[#c7d2fe] flex items-center justify-center px-4">
+            <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8 border border-gray-100"
+            >
+                <div className="flex justify-center mb-6">
+                    <img src={logo} alt="eSchool Logo" className="h-16 w-16" />
+                </div>
+                <h2 className="text-3xl font-extrabold text-center text-[#4335A7] mb-4">
+                    Welcome Back
+                </h2>
+                <p className="text-sm text-center text-gray-500 mb-6">
+                    Please enter your credentials to access your account.
+                </p>
 
-                    {error && (
-                        <div className="mb-4 text-red-600 text-sm text-center font-medium">
-                            {error}
-                        </div>
-                    )}
+                {error && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="mb-4 text-red-600 text-sm text-center font-medium"
+                    >
+                        {error}
+                    </motion.div>
+                )}
 
+                <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-sm text-gray-700 mb-1">Email</label>
                         <input
-                            type="text"
+                            type="email"
                             name="email"
                             value={form.email}
                             onChange={handleChange}
@@ -86,16 +102,21 @@ const Login = () => {
                         />
                     </div>
 
-                    <button
+                    <motion.button
+                        whileTap={{ scale: 0.95 }}
                         type="submit"
                         disabled={loading}
                         className="w-full bg-[#4335A7] text-white font-semibold py-2 rounded-lg hover:bg-[#372c88] transition duration-200"
                     >
                         {loading ? 'Logging in...' : 'Login'}
-                    </button>
+                    </motion.button>
                 </form>
-            </div>
-        </>
+
+                <p className="text-xs text-center text-gray-400 mt-6">
+                    © {new Date().getFullYear()} e-School. All rights reserved.
+                </p>
+            </motion.div>
+        </div>
     );
 };
 

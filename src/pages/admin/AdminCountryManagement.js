@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../../api/axios";
 import Navbar from "../../components/navbar";
-import { MdEdit, MdDelete, MdSave, MdAdd, MdExpandMore, MdExpandLess, MdAttachFile, MdFolder, MdBook, MdLibraryBooks, MdSchool, MdArrowBack } from "react-icons/md";
+import { MdEdit, MdDelete, MdSave, MdAdd, MdExpandMore, MdExpandLess, MdAttachFile, MdFolder, MdBook, MdLibraryBooks, MdSchool, MdArrowBack, MdSearch, MdClose } from "react-icons/md";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SiHtmlacademy } from "react-icons/si";
@@ -11,7 +11,8 @@ import { RiBookShelfLine } from "react-icons/ri";
 import { PiSubtitlesLight } from "react-icons/pi";
 import { FaRegFolderOpen } from "react-icons/fa";
 import { FaRegFilePdf } from "react-icons/fa6";
-import { SubjectIconSelector, SUBJECT_ICONS } from "./SubjectIconSelector"; // Import the icon selector
+import { SubjectIconSelector, SUBJECT_ICONS } from "./SubjectIconSelector"; 
+
 
 const AdminCountryManagement = () => {
   const { id } = useParams();
@@ -31,6 +32,11 @@ const AdminCountryManagement = () => {
   // Icon selection state
   const [showIconSelector, setShowIconSelector] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState("");
+  
+  // Enhanced UX state
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("date");
+  const [viewMode, setViewMode] = useState("grid"); // grid or list
 
   useEffect(() => {
     fetchCountryData();
@@ -98,6 +104,7 @@ const AdminCountryManagement = () => {
       
       setCurrentView(view);
       setCurrentData(data);
+      setSearchTerm(""); // Reset search when navigating
       
       if (view !== 'levels') {
         setBreadcrumb([...breadcrumb, { name: parentName, view: currentView, data: currentData, id: parentId, type: parentType }]);
@@ -117,6 +124,7 @@ const AdminCountryManagement = () => {
     setCurrentView(previous.view);
     setCurrentData(previous.data);
     setBreadcrumb(breadcrumb.slice(0, -1));
+    setSearchTerm(""); // Reset search when going back
   };
 
   const handleAddItem = async () => {
@@ -125,15 +133,15 @@ const AdminCountryManagement = () => {
       return;
     }
     
-    // For subjects, require icon selection
-    if (currentView === 'subjects' && !selectedIcon) {
-      toast.warning("Please select an icon for the subject");
+    // Require icon selection for all levels
+    if (!selectedIcon) {
+      toast.warning("Please select an icon");
       return;
     }
     
     try {
       let endpoint = '';
-      let payload = { name: newItem };
+      let payload = { name: newItem, icon: selectedIcon };
       
       switch (currentView) {
         case 'levels':
@@ -147,7 +155,6 @@ const AdminCountryManagement = () => {
         case 'subjects':
           endpoint = '/subject';
           payload.academicLevelId = breadcrumb[breadcrumb.length - 1]?.id;
-          payload.icon = selectedIcon; // Include the selected icon
           break;
         case 'titles':
           endpoint = '/title';
@@ -162,7 +169,7 @@ const AdminCountryManagement = () => {
       const res = await axios.post(endpoint, payload);
       setCurrentData([...currentData, res.data]);
       setNewItem("");
-      setSelectedIcon(""); // Reset selected icon
+      setSelectedIcon("");
       toast.success("Item added successfully!");
     } catch (error) {
       toast.error(`Add failed: ${error.message}`);
@@ -179,8 +186,8 @@ const AdminCountryManagement = () => {
       let endpoint = '';
       let payload = { name: updatedName };
       
-      // Include icon in payload for subjects
-      if (currentView === 'subjects' && updatedIcon !== null) {
+      // Include icon in payload for all levels
+      if (updatedIcon !== null) {
         payload.icon = updatedIcon;
       }
       
@@ -257,7 +264,6 @@ const AdminCountryManagement = () => {
         }
       });
       
-      // Update the folder with the new PDF
       setCurrentData(currentData.map(folder => 
         folder._id === folderId ? { 
           ...folder, 
@@ -322,8 +328,8 @@ const AdminCountryManagement = () => {
   };
 
   const getItemIcon = (item) => {
-    // For subjects, use the stored icon if available
-    if (currentView === 'subjects' && item.icon) {
+    // Use stored icon if available
+    if (item.icon) {
       const iconData = SUBJECT_ICONS.find(icon => icon.name === item.icon);
       if (iconData) {
         const IconComponent = iconData.icon;
@@ -331,7 +337,7 @@ const AdminCountryManagement = () => {
       }
     }
     
-    // Default icons for other views
+    // Default icons for backward compatibility
     switch (currentView) {
       case 'levels': return <SiHtmlacademy />;
       case 'academic': return <HiOutlineAcademicCap />;
@@ -344,6 +350,24 @@ const AdminCountryManagement = () => {
 
   const canNavigateDeeper = () => {
     return currentView !== 'folders';
+  };
+
+  // Filter and sort data
+  const getFilteredAndSortedData = () => {
+    let filtered = currentData.filter(item =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    return filtered.sort((a, b) => {
+      switch (sortBy) {
+        case 'name':
+          return a.name.localeCompare(b.name);
+        case 'date':
+          return new Date(b.createdAt || 0) + new Date(a.createdAt || 0);
+        default:
+          return 0;
+      }
+    });
   };
 
   if (loading) {
@@ -359,6 +383,8 @@ const AdminCountryManagement = () => {
     );
   }
 
+  const filteredData = getFilteredAndSortedData();
+
   return (
     <>
       <Navbar />
@@ -367,18 +393,21 @@ const AdminCountryManagement = () => {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-[#4335A7]">Educational Structure Management</h1>
           {country && (
-            <div className="bg-[#4335A7] text-white px-4 py-2 rounded-lg">
+            <div className="bg-[#4335A7] text-white px-4 py-2 rounded-lg font-medium">
               {country.name}
             </div>
           )}
         </div>
 
         {/* Country Section */}
-        <div className="bg-white p-6 rounded-xl shadow-lg mb-6">
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">Country Information</h2>
-          <div className="flex gap-3 items-center">
+        <div className="bg-white p-6 rounded-xl shadow-lg mb-6 border border-gray-100">
+          <h2 className="text-xl font-semibold text-gray-700 mb-4 flex items-center gap-2">
+            <MdEdit className="text-[#4335A7]" />
+            Country Information
+          </h2>
+          <div className="flex gap-3 items-end">
             <div className="flex-1">
-              <label htmlFor="country-name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="country-name" className="block text-sm font-medium text-gray-700 mb-2">
                 Country Name
               </label>
               <input
@@ -386,13 +415,13 @@ const AdminCountryManagement = () => {
                 type="text"
                 value={editName}
                 onChange={(e) => setEditName(e.target.value)}
-                className="border border-gray-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#4335A7]"
+                className="border border-gray-300 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#4335A7] focus:border-[#4335A7] transition-all"
                 placeholder="Enter country name"
               />
             </div>
             <button 
               onClick={handleUpdateCountry} 
-              className="bg-[#4335A7] text-white px-6 py-2 rounded-lg hover:bg-[#372c94] flex items-center gap-2 transition-colors mt-6"
+              className="bg-[#4335A7] text-white px-6 py-3 rounded-lg hover:bg-[#372c94] flex items-center gap-2 transition-all transform hover:scale-105 font-medium"
             >
               <MdSave /> Save Changes
             </button>
@@ -400,62 +429,98 @@ const AdminCountryManagement = () => {
         </div>
 
         {/* Navigation Section */}
-        <div className="bg-white p-6 rounded-xl shadow-lg">
+        <div className="bg-white rounded-xl shadow-lg border border-gray-100">
           {/* Breadcrumb */}
           {breadcrumb.length > 0 && (
-            <div className="flex items-center gap-2 mb-4 text-sm text-gray-600">
-              <button
-                onClick={goBack}
-                className="flex items-center gap-1 text-[#4335A7] hover:text-[#372c94] font-medium"
-              >
-                <MdArrowBack /> Back
-              </button>
-              <span className="mx-2">•</span>
-              <span>Country</span>
-              {breadcrumb.map((crumb, index) => (
-                <React.Fragment key={index}>
-                  <span className="mx-2">→</span>
-                  <span>{crumb.name}</span>
-                </React.Fragment>
-              ))}
-              <span className="mx-2">→</span>
-              <span className="font-medium text-[#4335A7]">{getViewTitle()}</span>
+            <div className="px-6 pt-6 pb-4 border-b border-gray-100">
+              <div className="flex items-center gap-2 text-sm">
+                <button
+                  onClick={goBack}
+                  className="flex items-center gap-2 text-[#4335A7] hover:text-[#372c94] font-medium bg-[#4335A7]/10 px-3 py-1 rounded-lg hover:bg-[#4335A7]/20 transition-all"
+                >
+                  <MdArrowBack /> Back
+                </button>
+                <div className="flex items-center gap-2 text-gray-600">
+                  <span>Country</span>
+                  {breadcrumb.map((crumb, index) => (
+                    <React.Fragment key={index}>
+                      <span className="text-gray-400">→</span>
+                      <span className="bg-gray-100 px-2 py-1 rounded">{crumb.name}</span>
+                    </React.Fragment>
+                  ))}
+                  <span className="text-gray-400">→</span>
+                  <span className="font-medium text-[#4335A7] bg-[#4335A7]/10 px-2 py-1 rounded">{getViewTitle()}</span>
+                </div>
+              </div>
             </div>
           )}
 
-          {/* Header */}
-          <div className="flex justify-between items-center mb-6">
-            <div className="flex items-center gap-3">
-              {getViewIcon()}
-              <h2 className="text-xl font-semibold text-gray-700">{getViewTitle()}</h2>
-            </div>
-            <div className="text-sm text-gray-500">
-              {currentData.length} item{currentData.length !== 1 ? 's' : ''} found
-            </div>
-          </div>
-
-          {/* Add New Item */}
-          <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-            <h3 className="text-lg font-medium text-gray-700 mb-3">Add New {getViewTitle().slice(0, -1)}</h3>
-            <div className="flex gap-3">
-              <div className="flex-1">
-                <input
-                  type="text"
-                  value={newItem}
-                  onChange={(e) => setNewItem(e.target.value)}
-                  placeholder={`Enter ${getViewTitle().toLowerCase().slice(0, -1)} name`}
-                  className="border border-gray-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#4335A7]"
-                  onKeyPress={(e) => e.key === 'Enter' && handleAddItem()}
-                />
-                <p className="text-xs text-gray-500 mt-1">Press Enter to add</p>
+          {/* Header with Controls */}
+          <div className="p-6 border-b border-gray-100">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
+              <div className="flex items-center gap-3">
+                {getViewIcon()}
+                <h2 className="text-2xl font-semibold text-gray-700">{getViewTitle()}</h2>
+                <span className="bg-gray-100 text-gray-600 text-sm px-3 py-1 rounded-full">
+                  {filteredData.length} item{filteredData.length !== 1 ? 's' : ''}
+                </span>
               </div>
               
-              {/* Icon selector for subjects */}
-              {currentView === 'subjects' && (
+              {/* Search and Controls */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="relative">
+                  <MdSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Search items..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4335A7] w-full sm:w-64"
+                  />
+                  {searchTerm && (
+                    <button
+                      onClick={() => setSearchTerm("")}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      <MdClose />
+                    </button>
+                  )}
+                </div>
+                
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#4335A7]"
+                >
+                  <option value="name">Sort by Name</option>
+                  <option value="date">Sort by Date</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Add New Item */}
+            <div className="p-4 bg-gradient-to-r from-[#4335A7]/5 to-blue-50 rounded-lg border border-dashed border-[#4335A7]/30">
+              <h3 className="text-lg font-medium text-gray-700 mb-3 flex items-center gap-2">
+                <MdAdd className="text-[#4335A7]" />
+                Add New {getViewTitle().slice(0, -1)}
+              </h3>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex-1">
+                  <input
+                    type="text"
+                    value={newItem}
+                    onChange={(e) => setNewItem(e.target.value)}
+                    placeholder={`Enter ${getViewTitle().toLowerCase().slice(0, -1)} name`}
+                    className="border border-gray-300 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#4335A7] focus:border-[#4335A7] transition-all"
+                    onKeyPress={(e) => e.key === 'Enter' && handleAddItem()}
+                  />
+                </div>
+                
+                {/* Icon selector for all levels */}
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setShowIconSelector(true)}
-                    className="border border-gray-300 rounded-lg px-4 py-2 flex items-center gap-2 hover:bg-gray-50"
+                    className="border border-gray-300 rounded-lg px-4 py-3 flex items-center gap-2 hover:bg-gray-50 transition-all min-w-[120px] justify-center"
                   >
                     {selectedIcon ? (
                       <>
@@ -466,43 +531,55 @@ const AdminCountryManagement = () => {
                       <span className="text-sm text-gray-500">Select Icon</span>
                     )}
                   </button>
+                  
+                  <button
+                    onClick={handleAddItem}
+                    className="bg-[#4335A7] text-white px-6 py-3 rounded-lg hover:bg-[#372c94] flex items-center gap-2 transition-all transform hover:scale-105 font-medium"
+                  >
+                    <MdAdd /> Add
+                  </button>
                 </div>
-              )}
-              
-              <button
-                onClick={handleAddItem}
-                className="bg-[#4335A7] text-white px-6 py-2 rounded-lg hover:bg-[#372c94] flex items-center gap-2 transition-colors"
-              >
-                <MdAdd /> Add
-              </button>
+              </div>
+              <p className="text-xs text-gray-500 mt-2">Press Enter to add quickly, or click Add button</p>
             </div>
           </div>
 
           {/* Items List */}
-          <div className="space-y-3">
+          <div className="p-6">
             {loadingData ? (
-              <div className="flex justify-center py-8">
+              <div className="flex justify-center py-12">
                 <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#4335A7]"></div>
               </div>
-            ) : currentData.length > 0 ? (
-              currentData.map((item) => (
-                <ItemCard
-                  key={item._id}
-                  item={item}
-                  currentView={currentView}
-                  onEdit={handleEditItem}
-                  onDelete={handleDeleteItem}
-                  onNavigate={navigateTo}
-                  onFileUpload={handleFileUpload}
-                  onDeletePdf={handleDeletePdf}
-                  canNavigateDeeper={canNavigateDeeper()}
-                  getItemIcon={getItemIcon}
-                />
-              ))
+            ) : filteredData.length > 0 ? (
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {filteredData.map((item) => (
+                  <ItemCard
+                    key={item._id}
+                    item={item}
+                    currentView={currentView}
+                    onEdit={handleEditItem}
+                    onDelete={handleDeleteItem}
+                    onNavigate={navigateTo}
+                    onFileUpload={handleFileUpload}
+                    onDeletePdf={handleDeletePdf}
+                    canNavigateDeeper={canNavigateDeeper()}
+                    getItemIcon={getItemIcon}
+                  />
+                ))}
+              </div>
             ) : (
-              <div className="text-center py-8 border-2 border-dashed border-gray-300 rounded-lg">
-                <p className="text-gray-500">No {getViewTitle().toLowerCase()} found</p>
-                <p className="text-sm text-gray-400 mt-2">Add your first {getViewTitle().toLowerCase().slice(0, -1)} above</p>
+              <div className="text-center py-12 border-2 border-dashed border-gray-300 rounded-lg">
+                <div className="text-gray-400 text-4xl mb-4">📚</div>
+                <p className="text-gray-500 text-lg">No {getViewTitle().toLowerCase()} found</p>
+                {searchTerm ? (
+                  <p className="text-sm text-gray-400 mt-2">
+                    Try adjusting your search term "{searchTerm}"
+                  </p>
+                ) : (
+                  <p className="text-sm text-gray-400 mt-2">
+                    Add your first {getViewTitle().toLowerCase().slice(0, -1)} above
+                  </p>
+                )}
               </div>
             )}
           </div>
@@ -515,6 +592,7 @@ const AdminCountryManagement = () => {
           selectedIcon={selectedIcon}
           onIconSelect={handleIconSelect}
           onClose={() => setShowIconSelector(false)}
+          context={currentView}
         />
       )}
     </>
@@ -527,6 +605,7 @@ const ItemCard = ({ item, currentView, onEdit, onDelete, onNavigate, onFileUploa
   const [uploadingPdf, setUploadingPdf] = useState(false);
   const [showIconSelector, setShowIconSelector] = useState(false);
   const [itemIcon, setItemIcon] = useState(item.icon || "");
+  const [expandedPdfs, setExpandedPdfs] = useState(false);
 
   const getNextView = () => {
     switch (currentView) {
@@ -539,11 +618,7 @@ const ItemCard = ({ item, currentView, onEdit, onDelete, onNavigate, onFileUploa
   };
 
   const handleSave = () => {
-    if (currentView === 'subjects') {
-      onEdit(item._id, name, itemIcon);
-    } else {
-      onEdit(item._id, name);
-    }
+    onEdit(item._id, name, itemIcon);
     setEditing(false);
   };
 
@@ -565,77 +640,106 @@ const ItemCard = ({ item, currentView, onEdit, onDelete, onNavigate, onFileUploa
     return iconData ? iconData.icon : null;
   };
 
+  const formatFileSize = (bytes) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric' 
+    });
+  };
+
   return (
     <>
-      <div className="border border-gray-200 rounded-lg p-4 bg-white hover:shadow-md transition-shadow">
-        <div className="flex justify-between items-center">
+      <div className="border border-gray-200 rounded-lg p-4 bg-white hover:shadow-lg transition-all duration-200 hover:border-[#4335A7]/30">
+        <div className="flex justify-between items-start mb-3">
           <div className="flex items-center gap-3 flex-1">
-            <span className="text-2xl">{getItemIcon(item)}</span>
+            <div className="text-2xl text-[#4335A7] bg-[#4335A7]/10 p-2 rounded-lg">
+              {getItemIcon(item)}
+            </div>
             {editing ? (
-              <div className="flex-1 flex gap-2 items-center">
+              <div className="flex-1 flex flex-col gap-2">
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="border border-gray-300 rounded px-3 py-2 flex-1 focus:outline-none focus:ring-2 focus:ring-[#4335A7]"
+                  className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#4335A7] font-medium"
                   autoFocus
                   onKeyPress={(e) => e.key === 'Enter' && handleSave()}
                 />
-                {currentView === 'subjects' && (
-                  <button
-                    onClick={() => setShowIconSelector(true)}
-                    className="border border-gray-300 rounded px-3 py-2 flex items-center gap-2 hover:bg-gray-50"
-                  >
-                    {itemIcon ? (
-                      React.createElement(getSelectedIconComponent(), { size: 16 })
-                    ) : (
-                      <span className="text-sm">Icon</span>
-                    )}
-                  </button>
-                )}
+                <button
+                  onClick={() => setShowIconSelector(true)}
+                  className="border border-gray-300 rounded-lg px-3 py-2 flex items-center gap-2 hover:bg-gray-50 text-sm self-start"
+                >
+                  {itemIcon ? (
+                    <>
+                      {React.createElement(getSelectedIconComponent(), { size: 16 })}
+                      <span>Change Icon</span>
+                    </>
+                  ) : (
+                    <span>Select Icon</span>
+                  )}
+                </button>
               </div>
             ) : (
               <div className="flex-1">
-                <h3 className="text-lg font-medium text-gray-800">{item.name}</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-1">{item.name}</h3>
                 {currentView === 'folders' && item.pdfList && (
-                  <p className="text-sm text-gray-500">{item.pdfList.length} PDF{item.pdfList.length !== 1 ? 's' : ''}</p>
+                  <p className="text-sm text-gray-500 flex items-center gap-1">
+                    <FaRegFilePdf />
+                    {item.pdfList.length} PDF{item.pdfList.length !== 1 ? 's' : ''}
+                  </p>
+                )}
+                {item.createdAt && (
+                  <p className="text-xs text-gray-400 mt-1">
+                    Created: {formatDate(item.createdAt)}
+                  </p>
                 )}
               </div>
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             {editing ? (
               <button
                 onClick={handleSave}
-                className="text-green-600 hover:text-green-800 p-2"
-                title="Save"
+                className="text-green-600 hover:text-green-800 p-2 hover:bg-green-50 rounded-lg transition-all"
+                title="Save changes"
               >
-                <MdSave size={20} />
+                <MdSave size={18} />
               </button>
             ) : (
               <button 
                 onClick={() => setEditing(true)} 
-                className="text-blue-600 hover:text-blue-800 p-2"
-                title="Edit"
+                className="text-blue-600 hover:text-blue-800 p-2 hover:bg-blue-50 rounded-lg transition-all"
+                title="Edit item"
               >
-                <MdEdit size={20} />
+                <MdEdit size={18} />
               </button>
             )}
             <button
               onClick={() => onDelete(item._id)}
-              className="text-red-600 hover:text-red-800 p-2"
-              title="Delete"
+              className="text-red-600 hover:text-red-800 p-2 hover:bg-red-50 rounded-lg transition-all"
+              title="Delete item"
             >
-              <MdDelete size={20} />
+              <MdDelete size={18} />
             </button>
             {canNavigateDeeper && (
               <button
                 onClick={() => onNavigate(getNextView(), item._id, item.name, currentView)}
-                className="text-[#4335A7] hover:text-[#372c94] p-2 ml-2"
-                title="Open"
+                className="text-[#4335A7] hover:text-[#372c94] p-2 hover:bg-[#4335A7]/10 rounded-lg transition-all ml-1"
+                title="Open and explore"
               >
-                <MdExpandMore size={20} />
+                <MdExpandMore size={18} />
               </button>
             )}
           </div>
@@ -643,12 +747,12 @@ const ItemCard = ({ item, currentView, onEdit, onDelete, onNavigate, onFileUploa
 
         {/* Folder-specific content */}
         {currentView === 'folders' && (
-          <div className="mt-4 pt-4 border-t border-gray-200">
+          <div className="mt-4 pt-4 border-t border-gray-100">
             {/* Upload Section */}
-            <div className="mb-3">
-              <label className="flex items-center gap-2 text-sm text-[#4335A7] cursor-pointer hover:text-[#372c94]">
+            <div className="mb-4">
+              <label className="flex items-center gap-2 text-sm text-[#4335A7] cursor-pointer hover:text-[#372c94] bg-[#4335A7]/10 px-3 py-2 rounded-lg transition-all hover:bg-[#4335A7]/20 w-fit">
                 <MdAttachFile size={16} />
-                <span>Upload PDF</span>
+                <span className="font-medium">Upload PDF</span>
                 <input
                   type="file"
                   accept=".pdf"
@@ -657,45 +761,107 @@ const ItemCard = ({ item, currentView, onEdit, onDelete, onNavigate, onFileUploa
                   disabled={uploadingPdf}
                 />
               </label>
-              {uploadingPdf && <span className="text-sm text-gray-500 ml-2">Uploading...</span>}
+              {uploadingPdf && (
+                <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
+                  <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-[#4335A7]"></div>
+                  <span>Uploading...</span>
+                </div>
+              )}
             </div>
 
             {/* PDF List */}
             {item.pdfList && item.pdfList.length > 0 && (
               <div className="space-y-2">
-                <h4 className="text-sm font-medium text-gray-700">Files:</h4>
-                {item.pdfList.map((pdf) => (
-                  <div key={pdf._id} className="flex justify-between items-center bg-gray-50 p-2 rounded">
-                    <a 
-                      href={pdf.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline text-sm truncate flex items-center gap-2"
-                      title={pdf.filename}
-                    >
-                      📄 {pdf.filename}
-                    </a>
-                    <button
-                      onClick={() => onDeletePdf(item._id, pdf._id)}
-                      className="text-red-500 hover:text-red-700 p-1"
-                      title="Delete PDF"
-                    >
-                      <MdDelete size={14} />
-                    </button>
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <FaRegFilePdf className="text-red-500" />
+                    PDF Files ({item.pdfList.length})
+                  </h4>
+                  <button
+                    onClick={() => setExpandedPdfs(!expandedPdfs)}
+                    className="text-[#4335A7] hover:text-[#372c94] p-1 rounded transition-all"
+                    title={expandedPdfs ? "Collapse" : "Expand"}
+                  >
+                    {expandedPdfs ? <MdExpandLess size={16} /> : <MdExpandMore size={16} />}
+                  </button>
+                </div>
+                
+                {expandedPdfs && (
+                  <div className="space-y-2 max-h-40 overflow-y-auto">
+                    {item.pdfList.map((pdf) => (
+                      <div
+                        key={pdf._id}
+                        className="flex items-center justify-between p-2 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-all"
+                      >
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <FaRegFilePdf className="text-red-500 flex-shrink-0" size={14} />
+                            <span className="text-sm font-medium text-gray-700 truncate">
+                              {pdf.originalName || pdf.filename || 'Unnamed PDF'}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-3 mt-1 text-xs text-gray-500">
+                            {pdf.size && (
+                              <span>{formatFileSize(pdf.size)}</span>
+                            )}
+                            {pdf.uploadedAt && (
+                              <span>Uploaded: {formatDate(pdf.uploadedAt)}</span>
+                            )}
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-1 ml-2">
+                          {pdf.url && (
+                            <a
+                              href={pdf.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 p-1 hover:bg-blue-50 rounded transition-all"
+                              title="View PDF"
+                            >
+                              <MdExpandMore size={14} />
+                            </a>
+                          )}
+                          <button
+                            onClick={() => onDeletePdf(item._id, pdf._id)}
+                            className="text-red-600 hover:text-red-800 p-1 hover:bg-red-50 rounded transition-all"
+                            title="Delete PDF"
+                          >
+                            <MdDelete size={14} />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                )}
+                
+                {!expandedPdfs && item.pdfList.length > 0 && (
+                  <div className="text-xs text-gray-500 pl-2">
+                    Click to view {item.pdfList.length} file{item.pdfList.length !== 1 ? 's' : ''}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Empty state for folders with no PDFs */}
+            {(!item.pdfList || item.pdfList.length === 0) && (
+              <div className="text-center py-4 border border-dashed border-gray-300 rounded-lg bg-gray-50">
+                <FaRegFilePdf className="mx-auto text-gray-400 text-2xl mb-2" />
+                <p className="text-sm text-gray-500">No PDFs uploaded yet</p>
+                <p className="text-xs text-gray-400 mt-1">Use the upload button above to add files</p>
               </div>
             )}
           </div>
         )}
       </div>
 
-      {/* Icon Selector Modal for editing subjects */}
-      {showIconSelector && currentView === 'subjects' && (
+      {/* Icon Selector Modal for Individual Items */}
+      {showIconSelector && (
         <SubjectIconSelector
           selectedIcon={itemIcon}
           onIconSelect={handleIconSelect}
           onClose={() => setShowIconSelector(false)}
+          context={currentView}
         />
       )}
     </>
