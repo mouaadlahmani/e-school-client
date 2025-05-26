@@ -1,0 +1,10 @@
+{
+  "header": {
+    "message": "Bienvenue"
+  },
+  "home": {
+    "body": "Bonjour le monde !",
+    "description": "Parcourez les pays et leurs niveaux éducatifs",
+    "no_levels": "Aucun niveau trouvé"
+  }
+}

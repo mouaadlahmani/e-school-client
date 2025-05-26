@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'http://localhost:1337',
+    baseURL: 'http://localhost:1337/api/',
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ api.interceptors.response.use(
             switch (error.response.status) {
                 case 401:
                     localStorage.removeItem('token');
-                    window.location.href = '/login';
+                    window.location.href = '/admin';
                     break;
                 case 403:
                     console.error('Access forbidden');
