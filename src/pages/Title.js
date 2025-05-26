@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import Navbar from '../components/navbar';
 import { FaRegListAlt, FaFolder, FaFolderOpen, FaFilePdf } from 'react-icons/fa';
 
+const BASE_URL = "https://e-school-api.vercel.app"
+
 const Title = () => {
     const [titleData, setTitleData] = useState([]);
     const [selectedFolderId, setSelectedFolderId] = useState(null);
@@ -101,8 +103,8 @@ const Title = () => {
                                                             folderPdfs[folder._id].map((pdf, idx) => {
                                                                 const pdfUrl =
                                                                     typeof pdf === 'string'
-                                                                        ? (pdf.startsWith('http') ? pdf : `http://localhost:1337${pdf}`)
-                                                                        : (pdf.url.startsWith('http') ? pdf.url : `http://localhost:1337${pdf.url}`);
+                                                                        ? (pdf.startsWith('http') ? pdf : `${BASE_URL}${pdf}`)
+                                                                        : (pdf.url.startsWith('http') ? pdf.url : `${BASE_URL}${pdf.url}`);
                                                                 const displayName = pdf.name || `PDF ${idx + 1}`;
 
                                                                 return (
