@@ -230,14 +230,14 @@ const Home = () => {
 
       {/* Hero Slider Section */}
       <div className="bg-gray-50 py-20">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800">
-                Les avantages de <span className='text-[#21B573]'>Go</span>MyClass
+                Les avantages de <span className="text-[#21B573]">Go</span>MyClass
               </h1>
-              <p className="text-xl mb-6 leading-relaxed">
+              <p className="text-lg md:text-xl mb-6 leading-relaxed">
                 GoMyClass allie l’excellence pédagogique à la flexibilité du digital.
                 Bénéficiez d’un enseignement en direct, structuré et accessible partout, conçu pour vous accompagner vers la réussite.
                 Cours interactifs, explications claires, supports complets… tout est réuni pour vous faire progresser efficacement, à votre rythme.
@@ -245,16 +245,20 @@ const Home = () => {
                 <br />
                 Rejoignez-nous dès maintenant pour transformer vos efforts en réussite.
               </p>
-              <button className="bg-[#21B573] text-black px-16 py-3 ml-80 rounded-full hover:bg-green-500 transition-all font-bold">
-                Rejoins GoMyClass
-              </button>
+              <div className="flex justify-start lg:justify-start">
+                <button className="bg-[#21B573] text-black px-12 py-3 rounded-full hover:bg-green-500 transition-all font-bold">
+                  Rejoins GoMyClass
+                </button>
+              </div>
             </div>
 
-            {/* Right Placeholder */}
-            <div className="h-96 rounded-2xl flex items-center justify-center">
-              <div className="text-gray-400 text-center">
-                <img className='rounded-2xl h-[400px] w-[400px] object-cover' src={study} alt='GoMyclass' />
-              </div>
+            {/* Right Image */}
+            <div className="flex items-center justify-center">
+              <img
+                className="rounded-2xl w-full max-w-md h-auto object-cover"
+                src={study}
+                alt="GoMyClass"
+              />
             </div>
           </div>
         </div>
