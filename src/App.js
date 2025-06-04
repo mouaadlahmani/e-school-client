@@ -13,6 +13,7 @@ import global_ar from "../src/translitions/ar/global.json";
 import global_fr from "../src/translitions/fr/global.json";
 import { I18nextProvider } from 'react-i18next';
 import Login from './pages/admin/login';
+import Formation from './pages/Formation';
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -33,6 +34,7 @@ function App() {
       <I18nextProvider i18n={i18next}>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/formation' element={<Formation />} />
           <Route path='/admin' element={<Login />} />
           <Route path='/dashboard' element={
             <ProtectedRoute roles={['admin']}>

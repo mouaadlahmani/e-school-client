@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, BookOpen, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import mobileApp from "../assets/images/mobileApp.png"
-import { TbWorld } from "react-icons/tb";
 import study from "../assets/images/study.png";
 import geniecivil from "../assets/images/geniecivil.jpg"
 import Infographie from "../assets/images/Infographie.png"
 import Informatique from "../assets/images/informatique.jpg"
+import zlij from "../assets/images/zlij.png"
 import Navbar from '../components/navbar';
-import { FaWhatsapp } from "react-icons/fa";
+import Footer from '../components/footer';
 import { FaArrowRightLong } from "react-icons/fa6";
-import { MdLocalPhone, MdLocationOn, MdMailOutline } from "react-icons/md";
-import { FaLinkedin, FaTelegram, FaTiktok, FaYoutube } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa6";
-import { ImFacebook2 } from "react-icons/im";
-import { BsTwitterX } from "react-icons/bs";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -124,34 +120,6 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Bar */}
-      <div className="bg-[#21B573] text-white px-4 py-2 text-sm overflow-x-auto whitespace-nowrap">
-        <div className="max-w-7xl mx-auto flex justify-between items-center gap-6 min-w-full">
-          {/* Phones */}
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 flex-shrink-0" />
-              <span>05 23 41 93 46</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 flex-shrink-0" />
-              <span>06 07 77 06 07</span>
-            </div>
-          </div>
-
-          {/* Roles + Language */}
-          <div className="flex items-center gap-4">
-            <span className="flex space-x-6 font-semibold cursor-pointer">
-              <span className='font-bold'>Étudiant</span>
-              <span>Enseignant</span>
-              <span>Entreprise</span>
-            </span>
-            <TbWorld className="w-6 h-6 text-white flex-shrink-0" />
-          </div>
-        </div>
-      </div>
-
-
       {/* Navigation */}
       <Navbar />
 
@@ -251,54 +219,83 @@ const Home = () => {
       </div>
 
       {/* Hero Slider Section */}
-      <div className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="text-center lg:text-left">
-              <h1 className="text-2xl md:text-4xl font-bold font-ibm md:font-semibold mb-6 text-gray-800">
-                Les Avantages De <span className="text-[#21B573]">Go</span>MyClass
-              </h1>
-              <p className="text-lg font-ibm md:text-xl mb-6 leading-relaxed">
-                GoMyClass allie l’excellence pédagogique à la flexibilité du digital.
-                Bénéficiez d’un enseignement en direct, structuré et accessible partout, conçu pour vous accompagner vers la réussite.
-                Cours interactifs, explications claires, supports complets… tout est réuni pour vous faire progresser efficacement, à votre rythme.
-                <br />
-                <br />
-                Rejoignez-nous dès maintenant pour transformer vos efforts en réussite.
-              </p>
-              <div className="flex justify-center lg:justify-start">
-                <button className="bg-[#21B573] text-black px-12 py-3 rounded-full hover:bg-green-500 transition-all font-bold">
-                  Rejoins GoMyClass
-                </button>
-              </div>
-            </div>
-
-            {/* Right Image */}
-            <div className="flex justify-center lg:justify-start items-center">
-              <img
-                className="rounded-2xl w-full max-w-md h-auto object-cover"
-                src={study}
-                alt="GoMyClass"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Advantages Grid */}
-      <div className="bg-white pb-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {advantages.map((advantage, idx) => (
-              <div
-                key={idx}
-                className="bg-gray-50 p-6 rounded-xl transition-colors duration-300 hover:bg-gray-200 cursor-pointer"
+      <div
+        className="w-full bg-cover bg-center"
+        style={{ backgroundImage: `url(${zlij})` }}
+      >
+        {/* White overlay with content */}
+        <div className="bg-white/90 w-full py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Left Content */}
+              <motion.div
+                className="text-center lg:text-left"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
               >
-                <h3 className="text-lg font-semibold font-ibm text-gray-800 mb-3">{advantage.title}</h3>
-                <p className="text-gray-600 text-sm font-ibm leading-relaxed">{advantage.description}</p>
-              </div>
-            ))}
+                <h1 className="text-2xl md:text-4xl font-bold font-ibm md:font-semibold mb-6 text-gray-800">
+                  Les Avantages De <span className="text-[#21B573]">Go</span>MyClass
+                </h1>
+                <p className="text-lg font-ibm md:text-xl mb-6 leading-relaxed">
+                  GoMyClass allie l’excellence pédagogique à la flexibilité du digital.
+                  Bénéficiez d’un enseignement en direct, structuré et accessible partout, conçu pour vous accompagner vers la réussite.
+                  Cours interactifs, explications claires, supports complets… tout est réuni pour vous faire progresser efficacement, à votre rythme.
+                  <br />
+                  <br />
+                  Rejoignez-nous dès maintenant pour transformer vos efforts en réussite.
+                </p>
+                <div className="flex justify-center lg:justify-start">
+                  <button className="bg-[#21B573] text-black px-12 py-3 rounded-full hover:bg-green-500 transition-all font-bold">
+                    Rejoins GoMyClass
+                  </button>
+                </div>
+              </motion.div>
+
+              {/* Right Image */}
+              <motion.div
+                className="flex justify-center items-center"
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <img
+                  className="rounded-2xl w-full max-w-md h-auto object-cover shadow-xl"
+                  src={study}
+                  alt="GoMyClass"
+                />
+              </motion.div>
+            </div>
+
+            {/* Cards Section */}
+            <div className="pt-20">
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                initial="hidden"
+                whileInView="visible"
+                transition={{ staggerChildren: 0.2 }}
+                viewport={{ once: true }}
+              >
+                {advantages.map((advantage, idx) => (
+                  <motion.div
+                    key={idx}
+                    className="bg-gray-50 p-6 rounded-xl shadow-md transition-all duration-300 hover:bg-gray-100 hover:shadow-xl cursor-pointer"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <h3 className="text-lg font-semibold font-ibm text-gray-800 mb-3">
+                      {advantage.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm font-ibm leading-relaxed">
+                      {advantage.description}
+                    </p>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>
@@ -440,104 +437,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-      {/* CTA Section - positioned overlapping the footer */}
-      <div className="relative z-10">
-        <div className="bg-[#21B573] rounded-xl py-6 px-6 w-full max-w-4xl mx-auto -mb-14 relative shadow-lg">
-          <div className="flex flex-col md:flex-row justify-between items-center text-white gap-4 px-6">
-            <p className="text-base md:text-lg font-medium max-w-2xl leading-relaxed text-center md:text-left">
-              Rejoignez notre plateforme 100 % en ligne et accédez à des cours scolaires et à des formations professionnelles, où que vous soyez.            </p>
-            <button className="bg-white text-[#21B573] px-8 py-3 rounded-full hover:bg-gray-100 transition-all font-semibold whitespace-nowrap">
-              Commencer maintenant →
-            </button>
-          </div>
-        </div>
-      </div>
-
-
-      {/* Footer */}
-      <footer className="bg-black text-white py-16 px-4">
-        <div className="w- mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            {/* Brand Column */}
-            <div>
-              <h3 className="text-3xl font-poppins font-bold mb-1 text-white"><span className='text-[#21B573]'>Go</span>MyClass</h3>
-              <p className="text-sm text-gray-400 mb-6 ml-12">Navigate to Success</p>
-              <div className="space-y-3 text-sm">
-                <button className="flex items-center gap-2 bg-[#21B573] text-white px-4 py-2 rounded-full w-40 hover:bg-[#1a9d63] transition-colors">
-                  <MdLocalPhone className="w-4 h-4" /> 06 07 77 06 07
-                </button>
-                <button className="flex items-center gap-2 bg-[#21B573] text-white px-4 py-2 rounded-full w-40 hover:bg-[#1a9d63] transition-colors">
-                  <Phone className="w-4 h-4" /> 05 23 41 93 46
-                </button>
-                <button className="flex items-center gap-2 bg-[#21B573] text-white px-4 py-2 rounded-full w-40 hover:bg-[#1a9d63] transition-colors">
-                  <MdLocationOn className="w-4 h-4" /> Où nous trouver
-                </button>
-                <button className="flex items-center gap-2 bg-[#21B573] text-white px-4 py-2 rounded-full w-40 hover:bg-[#1a9d63] transition-colors">
-                  <MdMailOutline className="w-4 h-4" /> Nous Contacter
-                </button>
-              </div>
-            </div>
-
-            {/* Quick Access Column */}
-            <div>
-              <h4 className="font-semibold mb-4 text-white">Accès rapides</h4>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="#" className="hover:text-white transition-colors">Formations</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Orientation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Classe en direct</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Offres</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Inscription</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-              </ul>
-            </div>
-
-            {/* Information Column */}
-            <div>
-              <h4 className="font-semibold mb-4 text-white">Informations</h4>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="#" className="hover:text-white transition-colors">À propos</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Conditions générales d'utilisation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Politique de confidentialité</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Politique d'annulation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
-              </ul>
-            </div>
-
-            {/* Social Media Column */}
-            <div>
-              <h4 className="font-semibold mb-4 text-white">Restons connectés</h4>
-              <div className="flex gap-3 mb-4">
-                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                  <ImFacebook2 className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                  <FaInstagram className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                  <FaLinkedin className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                  <BsTwitterX className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                  <FaYoutube className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                  <FaTiktok className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                  <FaTelegram className="w-5 h-5" />
-                </a>
-              </div>
-              <div className="flex items-center gap-1 text-[#21B573] text-xl font-bold">
-                <FaWhatsapp className="w-6 h-6 mt-0.5" />
-                <span>0607 <span className='text-white'>77</span> 0607</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/*footer*/}
+      <Footer />
     </div>
   );
 };
