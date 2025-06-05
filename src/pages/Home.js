@@ -301,7 +301,7 @@ const Home = () => {
       </div>
 
       {/* Mobile App Section */}
-      <div className="flex flex-col items-center py-16 mb-8">
+      <div className="flex flex-col w-full items-center py-16 mb-8">
         {/* Right Content */}
         <div>
           <img src={mobileApp} alt='Mobile App' />

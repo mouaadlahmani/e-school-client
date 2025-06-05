@@ -25,13 +25,16 @@ const footer = () => {
 
             {/* Footer */}
             <footer className="bg-black text-white py-16 px-4">
-                <div className="w- mx-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 justify-center mb-8">
+
                         {/* Brand Column */}
-                        <div>
-                            <h3 className="text-3xl font-poppins font-bold mb-1 text-white"><span className='text-[#21B573]'>Go</span>MyClass</h3>
-                            <p className="text-sm text-gray-400 mb-6 ml-12">Navigate to Success</p>
-                            <div className="space-y-3 text-sm">
+                        <div className="text-center md:text-left">
+                            <h3 className="text-3xl font-poppins font-bold mb-1 text-white">
+                                <span className="text-[#21B573]">Go</span>MyClass
+                            </h3>
+                            <p className="text-sm text-gray-400 mb-6 md:ml-12">Navigate to Success</p>
+                            <div className="space-y-3 text-sm flex flex-col items-center md:items-start">
                                 <button className="flex items-center gap-2 bg-[#21B573] text-white px-4 py-2 rounded-full w-40 hover:bg-[#1a9d63] transition-colors">
                                     <MdLocalPhone className="w-4 h-4" /> 06 07 77 06 07
                                 </button>
@@ -48,7 +51,7 @@ const footer = () => {
                         </div>
 
                         {/* Quick Access Column */}
-                        <div>
+                        <div className="text-center md:text-left">
                             <h4 className="font-semibold mb-4 text-white">Accès rapides</h4>
                             <ul className="space-y-2 text-sm text-gray-300">
                                 <li><a href="#" className="hover:text-white transition-colors">Formations</a></li>
@@ -61,7 +64,7 @@ const footer = () => {
                         </div>
 
                         {/* Information Column */}
-                        <div>
+                        <div className="text-center md:text-left">
                             <h4 className="font-semibold mb-4 text-white">Informations</h4>
                             <ul className="space-y-2 text-sm text-gray-300">
                                 <li><a href="#" className="hover:text-white transition-colors">À propos</a></li>
@@ -73,34 +76,43 @@ const footer = () => {
                         </div>
 
                         {/* Social Media Column */}
-                        <div>
+                        <div className="text-center md:text-left">
                             <h4 className="font-semibold mb-4 text-white">Restons connectés</h4>
-                            <div className="flex gap-3 mb-4">
-                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                                    <ImFacebook2 className="w-5 h-5" />
-                                </a>
-                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                                    <FaInstagram className="w-5 h-5" />
-                                </a>
-                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                                    <FaLinkedin className="w-5 h-5" />
-                                </a>
-                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                                    <BsTwitterX className="w-5 h-5" />
-                                </a>
-                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                                    <FaYoutube className="w-5 h-5" />
-                                </a>
-                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                                    <FaTiktok className="w-5 h-5" />
-                                </a>
-                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-xl">
-                                    <FaTelegram className="w-5 h-5" />
-                                </a>
+
+                            <div className="flex flex-col items-center md:items-start gap-4 mb-6">
+                                {/* First row: 4 icons */}
+                                <div className="grid grid-cols-4 gap-5">
+                                    <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
+                                        <ImFacebook2 className="w-7 h-7" />
+                                    </a>
+                                    <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
+                                        <FaInstagram className="w-7 h-7" />
+                                    </a>
+                                    <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
+                                        <FaLinkedin className="w-7 h-7" />
+                                    </a>
+                                    <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
+                                        <BsTwitterX className="w-7 h-7" />
+                                    </a>
+                                </div>
+
+                                {/* Second row: 3 icons */}
+                                <div className="grid grid-cols-3 gap-5">
+                                    <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
+                                        <FaYoutube className="w-7 h-7" />
+                                    </a>
+                                    <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
+                                        <FaTiktok className="w-7 h-7" />
+                                    </a>
+                                    <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
+                                        <FaTelegram className="w-7 h-7" />
+                                    </a>
+                                </div>
                             </div>
-                            <div className="flex items-center gap-1 text-[#21B573] text-xl font-bold">
-                                <FaWhatsapp className="w-6 h-6 mt-0.5" />
-                                <span>0607 <span className='text-white'>77</span> 0607</span>
+
+                            <div className="flex justify-center md:justify-start items-center gap-1 text-[#21B573] text-2xl font-bold">
+                                <FaWhatsapp className="w-8 h-8 mt-0.5" />
+                                <span>0607 <span className="text-white">77</span> 0607</span>
                             </div>
                         </div>
                     </div>
