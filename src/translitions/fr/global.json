@@ -1,10 +1,103 @@
 {
   "header": {
-    "message": "Bienvenue"
+    "student": "Étudiant",
+    "teacher": "Enseignant",
+    "company": "Entreprise"
   },
-  "home": {
-    "body": "Bonjour le monde !",
-    "description": "Parcourez les pays et leurs niveaux éducatifs",
-    "no_levels": "Aucun niveau trouvé"
+  "slider": {
+    "slide1": {
+      "title": "Apprenez avec les meilleurs experts dans votre domaine",
+      "button": "Commencer maintenant"
+    },
+    "slide2": {
+      "title": "Formations professionnelles certifiées en ligne",
+      "button": "Découvrir nos formations"
+    },
+    "slide3": {
+      "title": "Votre avenir commence ici",
+      "subtitle": "Développez vos compétences avec nos formations de qualité supérieure et rejoignez des milliers d'étudiants qui ont transformé leur carrière.",
+      "button": "Rejoignez-nous"
+    }
+  },
+  "hero": {
+    "title_start": "Bienvenue chez",
+    "description": "Plateforme d'apprentissage en ligne offrant des formations de qualité supérieure avec des instructeurs experts. Développez vos compétences à votre rythme avec notre contenu interactif et nos cours en direct.",
+    "cta_button": "Commencer"
+  },
+  "advantages": {
+    "live_courses": {
+      "title": "Cours en direct",
+      "description": "Participez à des sessions interactives en temps réel avec nos instructeurs experts et interagissez directement avec eux."
+    },
+    "ministry_content": {
+      "title": "Contenu du ministère",
+      "description": "Contenu éducatif conforme aux standards du ministère de l'éducation pour garantir la qualité de l'apprentissage."
+    },
+    "professional_quality": {
+      "title": "Qualité professionnelle",
+      "description": "Formations conçues par des professionnels du secteur avec une approche pratique et moderne."
+    },
+    "flexible_schedule": {
+      "title": "Horaire flexible",
+      "description": "Apprenez à votre rythme avec des horaires adaptés à votre emploi du temps personnel et professionnel."
+    },
+    "total_accessibility": {
+      "title": "Accessibilité totale",
+      "description": "Accédez à vos cours depuis n'importe quel appareil, n'importe où et n'importe quand."
+    },
+    "chat_support": {
+      "title": "Support par chat",
+      "description": "Assistance technique et pédagogique disponible 24h/7j pour répondre à toutes vos questions."
+    }
+  },
+  "formations": {
+    "title": "Nos formations",
+    "subtitle": "Choisissez votre parcours",
+    "description": "Découvrez notre large gamme de formations professionnelles conçues pour vous aider à développer vos compétences et atteindre vos objectifs de carrière. Chaque formation est animée par des experts du domaine.",
+    "civil_engineering": {
+      "title": "Génie Civil",
+      "description": "Formation complète en génie civil couvrant la conception, la construction et la gestion de projets d'infrastructure. Apprenez les techniques modernes et les logiciels professionnels."
+    },
+    "computer_science": {
+      "title": "Informatique",
+      "description": "Maîtrisez les langages de programmation, le développement web, les bases de données et les technologies émergentes avec nos cours pratiques."
+    },
+    "graphics": {
+      "title": "Design Graphique",
+      "description": "Développez votre créativité avec nos formations en design graphique, utilisation des logiciels Adobe, et création d'identités visuelles."
+    },
+    "learn_more": "En savoir plus"
+  },
+  "blog": {
+    "title": "Articles récents",
+    "see_more": "Voir plus",
+    "motivation_tips": "10 conseils pour rester motivé pendant vos études en ligne",
+    "graphics_beginner": "Guide complet du design graphique pour débutants",
+    "first_web_project": "Comment créer votre premier projet web professionnel",
+    "digital_advantages": "Les avantages de l'apprentissage numérique en 2024"
+  },
+  "cta": {
+    "description": "Prêt à transformer votre carrière ? Rejoignez des milliers d'étudiants qui ont déjà commencé leur parcours d'apprentissage avec nous.",
+    "button": "Commencer maintenant"
+  },
+  "footer": {
+    "tagline": "Votre partenaire d'apprentissage",
+    "find_us": "Nous trouver",
+    "contact_us": "Nous contacter",
+    "quick_access": "Accès rapide",
+    "formations": "Formations",
+    "orientation": "Orientation",
+    "live_class": "Cours en direct",
+    "offers": "Offres",
+    "registration": "Inscription",
+    "blog": "Blog",
+    "information": "Informations",
+    "about": "À propos",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "cancellation": "Politique d'annulation",
+    "faq": "FAQ",
+    "stay_connected": "Restez connectés",
+    "copyright": "© 2024 GoMyClass. Tous droits réservés."
   }
 }

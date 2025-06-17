@@ -2,36 +2,33 @@ import React, { useEffect, useState } from 'react';
 import axios from '../api/axios';
 import Navbar from '../components/navbar';
 import { motion } from 'framer-motion';
-import { Globe, BookOpen, Layers, FolderOpen, Map } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { FaUsers } from "react-icons/fa";
+import { PiArticleNyTimesLight } from "react-icons/pi";
+import { BsLayoutTextWindowReverse } from "react-icons/bs";
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
-    countries: 0,
-    levels: 0,
-    subjects: 0,
-    titles: 0,
-    folders: 0
+    inscrires: 0,
+    inscription: 0,
+    articles: 0,
   });
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [countriesRes, levelsRes, subjectsRes, titlesRes, foldersRes] = await Promise.all([
-          axios.get('/country'),
-          axios.get('/level'),
-          axios.get('/subject'),
-          axios.get('/title'),
-          axios.get('/folder')
-        ]);
+        const [inscrireRes, inscriptionRes, articlesRes] = await Promise.all([
+          axios.get('/applies/sInscrire'),
+          axios.get('/applies/inscription'),
+          axios.get('/articles'),
 
+        ]);
+        
         setStats({
-          countries: countriesRes.data.length,
-          levels: levelsRes.data.length,
-          subjects: subjectsRes.data.length,
-          titles: titlesRes.data.length,
-          folders: foldersRes.data.length
+          inscrires: inscrireRes.data.length,
+          inscription: inscriptionRes.data.length,
+          articles: articlesRes.data.data.length,
         });
       } catch (error) {
         console.error('Error fetching dashboard data:', error.message);
@@ -42,11 +39,9 @@ const Dashboard = () => {
   }, []);
 
   const cardData = [
-    { label: 'Countries', value: stats.countries, nav: '/countries', icon: <Globe size={28} />, color: 'from-green-400 to-blue-500' },
-    { label: 'Levels', value: stats.levels, nav: '/levels', icon: <Layers size={28} />, color: 'from-purple-400 to-pink-500' },
-    { label: 'Subjects', value: stats.subjects, nav: '/subjects', icon: <BookOpen size={28} />, color: 'from-yellow-400 to-red-500' },
-    { label: 'Titles', value: stats.titles, nav: '/titles', icon: <FolderOpen size={28} />, color: 'from-indigo-400 to-purple-500' },
-    { label: 'Folders', value: stats.folders, nav: '/folders', icon: <Map size={28} />, color: 'from-rose-400 to-orange-500' }
+    { label: 'Inscriptions', value: stats.inscription, nav: '/applies', icon: <FaUsers size={28} />, color: 'from-green-400 to-green-500' },
+    { label: 'Formation Inscriptions', value: stats.inscrires, nav: '/inscriptions', icon: <BsLayoutTextWindowReverse size={28} />, color: 'from-blue-400 to-blue-500' },
+    { label: 'Articles', value: stats.articles, nav: '/blogs', icon: <PiArticleNyTimesLight size={28} />, color: 'from-yellow-400 to-yellow-500' }
   ];
 
   return (

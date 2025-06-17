@@ -2,11 +2,15 @@ import React, { useState, useMemo } from 'react';
 import { Clock, Users, Globe, Calendar, Tag, ArrowRight } from 'lucide-react';
 import Navbar from '../components/navbar';
 import Footer from '../components/footer';
-
+import Programme from './Programme';
+import { useNavigate } from 'react-router-dom';
 const Formation = () => {
   const [selectedCategories, setSelectedCategories] = useState(['Toutes']);
   const [visibleCount, setVisibleCount] = useState(4);
-
+  const [currentView, setCurrentView] = useState('formations'); // 'formations' or 'programme'
+  const [selectedFormationId, setSelectedFormationId] = useState(null);
+  const navigate = useNavigate();
+  
   const formations = [
     {
       id: 1,
@@ -107,14 +111,24 @@ const Formation = () => {
     setVisibleCount(4);
   };
 
-  const filteredFormations = useMemo(() => {
-    if (selectedCategories.includes('Toutes')) {
-      return formations;
-    }
-    return formations.filter(formation =>
-      selectedCategories.includes(formation.category)
-    );
-  }, [selectedCategories]);
+  const handleShowProgram = (formationId) => {
+    setSelectedFormationId(formationId);
+    setCurrentView('programme');
+  };
+
+  const handleBackToFormations = () => {
+    setCurrentView('formations');
+    setSelectedFormationId(null);
+  };
+
+  // Show programme page if selected
+  if (currentView === 'programme') {
+    return <Programme formationId={selectedFormationId} onBack={handleBackToFormations} />;
+  }
+
+  const filteredFormations = selectedCategories.includes('Toutes')
+    ? formations
+    : formations.filter(formation => selectedCategories.includes(formation.category));
 
   const visibleFormations = filteredFormations.slice(0, visibleCount);
   const hasMoreFormations = filteredFormations.length > visibleCount;
@@ -125,7 +139,6 @@ const Formation = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navbar */}
       <Navbar />
       {/* Header */}
       <div style={{ backgroundColor: '#21B573' }} className="text-white py-6 md:py-8 px-4 mb-6">
@@ -137,9 +150,9 @@ const Formation = () => {
 
       <div className="mx-auto px-4 py-4 md:py-6">
         <div className="flex flex-col lg:flex-row gap-4 md:gap-6">
-          {/* Sidebar - Full width on mobile, fixed width on desktop */}
+          {/* Sidebar */}
           <div className="w-full lg:w-64 xl:w-72 flex-shrink-0">
-            <div className="bg-[#D9D9D9] p-4 md:p-6 rounded-lg shadow-sm">
+            <div className="bg-gray-200 p-4 md:p-6 rounded-lg shadow-sm">
               <h3 className="font-semibold text-base md:text-lg mb-3 md:mb-4">Choisissez une catégorie</h3>
               <div className="space-y-2 md:space-y-3">
                 {categories.map(category => (
@@ -161,8 +174,7 @@ const Formation = () => {
           <div className="flex-1">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
               {visibleFormations.map(formation => (
-                <div key={formation.id} className="bg-[#D9D9D9] rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
-                  {/* Course Image */}
+                <div key={formation.id} className="bg-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
                   <div className="h-32 md:h-40 lg:h-48 overflow-hidden bg-gray-200">
                     <img
                       src={formation.image}
@@ -171,15 +183,12 @@ const Formation = () => {
                     />
                   </div>
 
-                  {/* Course Content */}
                   <div className="p-4 md:p-6">
                     <h3 className="font-bold text-base md:text-lg lg:text-xl mb-3 md:mb-4 text-gray-900">
                       {formation.name}
                     </h3>
 
-                    {/* Info Grid - Two Columns */}
                     <div className="grid grid-cols-2 gap-x-4 gap-y-2 md:gap-y-3 text-xs md:text-sm mb-4 md:mb-6">
-                      {/* Left Column */}
                       <div className="space-y-2 md:space-y-3">
                         <div className="flex items-center">
                           <Clock className="w-3 h-3 md:w-4 md:h-4 mr-2 flex-shrink-0 text-gray-600" />
@@ -195,7 +204,6 @@ const Formation = () => {
                         </div>
                       </div>
 
-                      {/* Right Column */}
                       <div className="space-y-2 md:space-y-3">
                         <div className="flex items-center">
                           <Clock className="w-3 h-3 md:w-4 md:h-4 mr-2 flex-shrink-0 text-gray-600" />
@@ -212,14 +220,17 @@ const Formation = () => {
                       </div>
                     </div>
 
-                    {/* Buttons - Centered */}
                     <div className="flex justify-center gap-3">
-                      <button className="px-4 py-2 font-semibold md:px-6 md:py-3 bg-transparent border md:border-2 border-gray-900 rounded-full text-xs md:text-sm text-gray-900 hover:bg-gray-200 transition-colors">
+                      <button
+                        onClick={() => handleShowProgram(formation.id)}
+                        className="px-4 py-2 font-semibold md:px-6 md:py-3 bg-transparent border md:border-2 border-gray-900 rounded-full text-xs md:text-sm text-gray-900 hover:bg-gray-200 transition-colors"
+                      >
                         Voir Programme
                       </button>
                       <button
                         className="px-8 py-2 font-semibold md:px-12 md:py-3 rounded-full text-xs md:text-base text-black hover:opacity-90 transition-opacity"
                         style={{ backgroundColor: '#21B573' }}
+                        onClick={() => navigate("/inscrire")}
                       >
                         S'inscrire
                       </button>
@@ -229,7 +240,6 @@ const Formation = () => {
               ))}
             </div>
 
-            {/* Afficher Plus Button */}
             {hasMoreFormations && (
               <div className="flex justify-center mb-8">
                 <button
@@ -242,7 +252,6 @@ const Formation = () => {
               </div>
             )}
 
-            {/* No Results */}
             {filteredFormations.length === 0 && (
               <div className="text-center py-8 md:py-12">
                 <h3 className="text-lg md:text-xl font-medium text-gray-900 mb-2">Aucune formation trouvée</h3>
@@ -252,7 +261,6 @@ const Formation = () => {
           </div>
         </div>
       </div>
-      {/* Footer */}
       <Footer />
     </div>
   );

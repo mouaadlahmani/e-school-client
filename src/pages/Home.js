@@ -10,19 +10,31 @@ import Navbar from '../components/navbar';
 import Footer from '../components/footer';
 import { FaArrowRightLong } from "react-icons/fa6";
 import { motion } from "framer-motion";
+import { useSwipeable } from 'react-swipeable';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from '../api/axios';
+
+const BASE_URL = 'http://localhost:1337';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [articles, setArticles] = useState([]);
   const images = [geniecivil, Informatique, Infographie];
+  const navigate = useNavigate();
 
-  const sliderContent = [
-    {
-      title: "",
-      subtitle: "",
-      description: "",
-      cta: ""
-    }
-  ];
+  useEffect(() => {
+    const fetchPublishedArticles = async () => {
+      try {
+        const res = await axios.get('/articles/published');
+        setArticles(res.data.data.slice(0, 4));
+        console.log(res.data.data);
+
+      } catch (error) {
+        console.error('Error fetching published articles:', error);
+      }
+    };
+    fetchPublishedArticles();
+  }, []);
 
   const advantages = [
     {
@@ -69,21 +81,6 @@ const Home = () => {
     }
   ];
 
-  const blogPosts = [
-    {
-      title: "Comment rester motivé(e) pendant les formations à distance"
-    },
-    {
-      title: "Débuter en infographie : outils et conseils pratiques"
-    },
-    {
-      title: "Comment réussir son premier projet web en HTML & CSS"
-    },
-    {
-      title: "Les avantages du numérique pour les élèves du collège et lycée"
-    }
-  ];
-
   const slides = [
     {
       title: "Formations pro 100% en ligne",
@@ -113,6 +110,13 @@ const Home = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => nextSlide(),
+    onSwipedRight: () => prevSlide(),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+  });
+
   useEffect(() => {
     const interval = setInterval(nextSlide, 10000);
     return () => clearInterval(interval);
@@ -124,7 +128,10 @@ const Home = () => {
       <Navbar />
 
       {/*Slider Section*/}
-      <div className="relative w-full h-[700px] sm:h-[500px] md:h-[550px] lg:h-[600px] overflow-hidden">
+      <div
+        {...handlers}
+        className="relative w-full h-[700px] sm:h-[500px] md:h-[550px] lg:h-[700px] overflow-hidden"
+      >
         {slides.map((slide, index) => (
           <div
             key={index}
@@ -136,24 +143,24 @@ const Home = () => {
               }`}
           >
             <div
-              className="w-full h-full flex flex-col justify-center items-start px-6 sm:px-10 md:px-16 lg:px-20 xl:px-32 text-white relative bg-cover bg-center bg-no-repeat"
+              className="w-full h-full flex flex-col justify-center items-center lg:items-start px-6 sm:px-10 md:px-16 lg:px-20 xl:px-32 text-white relative bg-cover bg-center bg-no-repeat"
               style={{
                 backgroundImage: `url(${slide.imageUrl})`
               }}
             >
-              {/* Dark overlay for better text readability */}
+              {/* Overlay */}
               <div className="absolute inset-0 bg-black/50"></div>
 
-              {/* Animated Background Elements */}
+              {/* Animated Background */}
               <div className="absolute inset-0">
-                {/* Network nodes */}
+                {/* Nodes */}
                 <div className="absolute top-12 right-20 w-2 h-2 bg-blue-400 rounded-full animate-pulse opacity-70"></div>
                 <div className="absolute top-32 right-40 w-1.5 h-1.5 bg-cyan-300 rounded-full animate-pulse delay-300 opacity-70"></div>
                 <div className="absolute top-20 right-60 w-1 h-1 bg-blue-300 rounded-full animate-pulse delay-700 opacity-70"></div>
                 <div className="absolute bottom-40 right-32 w-2 h-2 bg-blue-400 rounded-full animate-pulse delay-1000 opacity-70"></div>
                 <div className="absolute bottom-60 right-16 w-1.5 h-1.5 bg-cyan-300 rounded-full animate-pulse delay-500 opacity-70"></div>
 
-                {/* Connection lines */}
+                {/* Lines */}
                 <svg className="absolute inset-0 w-full h-full opacity-20">
                   <defs>
                     <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -167,20 +174,20 @@ const Home = () => {
                   <path d="M 200 400 Q 400 350 650 400" stroke="url(#lineGradient)" strokeWidth="1" fill="none" />
                 </svg>
 
-                {/* Glowing orbs */}
+                {/* Glowing Orbs */}
                 <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-blue-500 rounded-full opacity-5 blur-xl animate-pulse"></div>
                 <div className="absolute bottom-1/3 right-1/5 w-24 h-24 bg-cyan-400 rounded-full opacity-10 blur-lg animate-pulse delay-1000"></div>
               </div>
 
-              {/* Slide content */}
-              <div className="relative z-10 max-w-4xl">
-                <h1 className="text-4xl font-ibm sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light mb-4 sm:mb-6 leading-tight tracking-tight">
+              {/* Slide Content */}
+              <div className="relative z-10 max-w-4xl text-center lg:text-left">
+                <h1 className="text-4xl font-poppins sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light mb-4 sm:mb-6 leading-tight tracking-tight">
                   {slide.title}
                 </h1>
                 <p className="text-base font-ibm sm:text-lg md:text-xl lg:text-2xl mb-8 sm:mb-10 leading-relaxed opacity-90 font-light max-w-2xl">
                   {slide.subtitle}
                 </p>
-                <button className="bg-emerald-500 font-ibm hover:bg-emerald-400 text-white text-sm sm:text-base md:text-lg font-medium py-3 px-6 sm:py-4 sm:px-8 md:py-4 md:px-10 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/25 active:scale-95 border-0 outline-none">
+                <button className="bg-emerald-500 font-ibm hover:bg-emerald-400 text-sm sm:text-base md:text-lg font-medium py-3 px-6 sm:py-4 sm:px-8 md:py-4 md:px-10 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/25 active:scale-95 border-0 outline-none">
                   {slide.buttonText}
                 </button>
               </div>
@@ -188,17 +195,17 @@ const Home = () => {
           </div>
         ))}
 
-        {/* Arrows */}
+        {/* Arrows (hidden on mobile) */}
         <button
           onClick={prevSlide}
-          className="absolute left-4 sm:left-6 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110"
+          className="hidden sm:flex absolute left-4 sm:left-6 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110"
         >
           <ChevronLeft size={32} className="sm:w-10 sm:h-10" />
         </button>
 
         <button
           onClick={nextSlide}
-          className="absolute right-4 sm:right-6 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110"
+          className="hidden sm:flex absolute right-4 sm:right-6 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110"
         >
           <ChevronRight size={32} className="sm:w-10 sm:h-10" />
         </button>
@@ -224,8 +231,8 @@ const Home = () => {
         style={{ backgroundImage: `url(${zlij})` }}
       >
         {/* White overlay with content */}
-        <div className="bg-white/90 w-full py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 w-full py-12 md:py-16">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Left Content */}
               <motion.div
@@ -235,10 +242,10 @@ const Home = () => {
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
               >
-                <h1 className="text-2xl md:text-4xl font-bold font-ibm md:font-semibold mb-6 text-gray-800">
+                <h1 className="text-xl md:text-3xl font-bold font-poppins md:font-semibold mb-4 text-gray-800">
                   Les Avantages De <span className="text-[#21B573]">Go</span>MyClass
                 </h1>
-                <p className="text-lg font-ibm md:text-xl mb-6 leading-relaxed">
+                <p className="text-base md:text-lg font-ibm mb-5 leading-relaxed text-gray-700">
                   GoMyClass allie l’excellence pédagogique à la flexibilité du digital.
                   Bénéficiez d’un enseignement en direct, structuré et accessible partout, conçu pour vous accompagner vers la réussite.
                   Cours interactifs, explications claires, supports complets… tout est réuni pour vous faire progresser efficacement, à votre rythme.
@@ -246,8 +253,8 @@ const Home = () => {
                   <br />
                   Rejoignez-nous dès maintenant pour transformer vos efforts en réussite.
                 </p>
-                <div className="flex justify-center lg:justify-start">
-                  <button className="bg-[#21B573] text-black px-12 py-3 rounded-full hover:bg-green-500 transition-all font-bold">
+                <div className="flex justify-center lg:justify-start mt-12">
+                  <button className="bg-[#21B573] text-black px-8 py-2.5 rounded-full hover:bg-green-500 transition-all font-semibold text-sm md:text-base">
                     Rejoins GoMyClass
                   </button>
                 </div>
@@ -262,7 +269,7 @@ const Home = () => {
                 viewport={{ once: true }}
               >
                 <img
-                  className="rounded-2xl w-full max-w-md h-auto object-cover shadow-xl"
+                  className="rounded-2xl w-full max-w-sm h-auto object-cover shadow-xl"
                   src={study}
                   alt="GoMyClass"
                 />
@@ -270,9 +277,9 @@ const Home = () => {
             </div>
 
             {/* Cards Section */}
-            <div className="pt-20">
+            <div className="pt-14">
               <motion.div
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 initial="hidden"
                 whileInView="visible"
                 transition={{ staggerChildren: 0.2 }}
@@ -281,12 +288,12 @@ const Home = () => {
                 {advantages.map((advantage, idx) => (
                   <motion.div
                     key={idx}
-                    className="bg-gray-50 p-6 rounded-xl shadow-md transition-all duration-300 hover:bg-gray-100 hover:shadow-xl cursor-pointer"
+                    className="bg-gray-50 p-5 rounded-xl shadow-md transition-all duration-300 hover:bg-gray-100 hover:shadow-xl cursor-pointer"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <h3 className="text-lg font-semibold font-ibm text-gray-800 mb-3">
+                    <h3 className="text-base font-semibold font-ibm text-gray-800 mb-2">
                       {advantage.title}
                     </h3>
                     <p className="text-gray-600 text-sm font-ibm leading-relaxed">
@@ -376,65 +383,57 @@ const Home = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center mb-12">
             <h2 className="text-3xl font-bold text-gray-800">Blog</h2>
-            <a href="#" className="text-green-600 hover:text-green-700 font-semibold flex items-center gap-1 group">
+            <Link to="/blog" className="text-green-600 hover:text-green-700 text-xl font-semibold flex items-center gap-1 group">
               <span>voir plus</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-            </a>
+              <ArrowRight className="w-6 h-6 mt-2 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
           </div>
 
           {/* Custom Grid Layout */}
-          <div className="grid grid-cols-12 gap-6 h-[500px]">
-            {/* Left Card */}
-            <div className="col-span-12 md:col-span-3 bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer">
-              <div className="bg-gray-200 h-3/5 flex items-center justify-center group-hover:bg-gray-300 transition-colors duration-300">
-                <BookOpen className="w-12 h-12 text-gray-400 group-hover:text-gray-500 transition-colors duration-300" />
-              </div>
-              <div className="p-4 h-2/5 flex items-center">
-                <h3 className="font-semibold text-gray-800 leading-tight group-hover:text-green-600 transition-colors duration-300 text-sm">
-                  {blogPosts[0].title}
-                </h3>
-              </div>
-            </div>
+          {articles.length >= 4 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {articles.map((article) => (
+                <div
+                  key={article._id}
+                  onClick={() => navigate(`/blog/${article.slug}`)}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group cursor-pointer border border-gray-100 hover:border-gray-200 transform hover:-translate-y-1"
+                >
+                  <div className="relative h-64 sm:h-56 md:h-64 lg:h-72">
+                    {article.thumbnail ? (
+                      <img
+                        src={`${BASE_URL}${article.thumbnail}`}
+                        alt={article.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                    ) : (
+                      <div className="bg-gradient-to-br from-blue-50 to-indigo-100 h-full flex items-center justify-center group-hover:from-blue-100 group-hover:to-indigo-200 transition-all duration-500">
+                        <BookOpen className="w-16 h-16 text-indigo-400 group-hover:text-indigo-600 transition-colors duration-300" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300"></div>
+                  </div>
 
-            {/* Middle Column - Two Stacked Cards */}
-            <div className="col-span-12 md:col-span-6 flex flex-col gap-6">
-              {/* Top Middle Card */}
-              <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer h-1/2">
-                <div className="bg-gray-200 h-3/5 flex items-center justify-center group-hover:bg-gray-300 transition-colors duration-300">
-                  <BookOpen className="w-12 h-12 text-gray-400 group-hover:text-gray-500 transition-colors duration-300" />
-                </div>
-                <div className="p-4 h-2/5 flex items-center">
-                  <h3 className="font-semibold text-gray-800 leading-tight group-hover:text-green-600 transition-colors duration-300 text-sm">
-                    {blogPosts[1].title}
-                  </h3>
-                </div>
-              </div>
+                  <div className="p-6 lg:p-8">
+                    <h3 className="font-bold text-xl lg:text-2xl text-gray-900 leading-tight group-hover:text-green-600 transition-colors duration-300 mb-3 line-clamp-2 min-h-[3.5rem]">
+                      {article.title}
+                    </h3>
 
-              {/* Bottom Middle Card */}
-              <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer h-1/2">
-                <div className="bg-gray-200 h-3/5 flex items-center justify-center group-hover:bg-gray-300 transition-colors duration-300">
-                  <BookOpen className="w-12 h-12 text-gray-400 group-hover:text-gray-500 transition-colors duration-300" />
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                      <span className="text-sm text-gray-500 font-medium">En savoir plus</span>
+                      <div className="w-8 h-8 rounded-full bg-green-50 group-hover:bg-green-100 flex items-center justify-center transition-all duration-300">
+                        <ArrowRight className="w-4 h-4 text-green-500 group-hover:translate-x-0.5 transition-transform duration-300" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="p-4 h-2/5 flex items-center">
-                  <h3 className="font-semibold text-gray-800 leading-tight group-hover:text-green-600 transition-colors duration-300 text-sm">
-                    {blogPosts[2].title}
-                  </h3>
-                </div>
-              </div>
+              ))}
             </div>
+          ) : (
+            <div className="text-center text-gray-500 mt-10">
+              <p className="text-xl">Aucun article à afficher pour le moment.</p>
+            </div>
+          )}
 
-            {/* Right Card */}
-            <div className="col-span-12 md:col-span-3 bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer">
-              <div className="bg-gray-200 h-3/5 flex items-center justify-center group-hover:bg-gray-300 transition-colors duration-300">
-                <BookOpen className="w-12 h-12 text-gray-400 group-hover:text-gray-500 transition-colors duration-300" />
-              </div>
-              <div className="p-4 h-2/5 flex items-center">
-                <h3 className="font-semibold text-gray-800 leading-tight group-hover:text-green-600 transition-colors duration-300 text-sm">
-                  {blogPosts[3].title}
-                </h3>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       {/*footer*/}

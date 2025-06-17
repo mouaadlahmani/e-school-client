@@ -57,12 +57,9 @@ const Login = () => {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8 border border-gray-100"
             >
-                <div className="flex justify-center mb-6">
-                    <img src={logo} alt="eSchool Logo" className="h-16 w-16" />
+                <div className="flex justify-center mb-2">
+                    <img src={logo} alt="eSchool Logo" className="h-21 w-21" />
                 </div>
-                <h2 className="text-3xl font-extrabold text-center text-[#4335A7] mb-4">
-                    Welcome Back
-                </h2>
                 <p className="text-sm text-center text-gray-500 mb-6">
                     Please enter your credentials to access your account.
                 </p>

@@ -11,10 +11,12 @@ const footer = () => {
         <>
             {/* CTA Section - positioned overlapping the footer */}
             <div className="relative z-10">
-                <div className="bg-[#21B573] rounded-xl py-6 px-6 w-full max-w-4xl mx-auto -mb-14 relative shadow-lg">
+                <div className="bg-[#21B573] rounded-xl py-8 px-6 w-full max-w-4xl mx-auto -mb-14 relative shadow-lg">
                     <div className="flex flex-col md:flex-row justify-between items-center text-white gap-4 px-6">
-                        <p className="text-base md:text-lg font-medium max-w-2xl leading-relaxed text-center md:text-left">
-                            Rejoignez notre plateforme 100 % en ligne et accédez à des cours scolaires et à des formations professionnelles, où que vous soyez.            </p>
+                        <p className="text-base md:text-lg font-medium max-w-2xl leading-relaxed text-center mx-auto">
+                            <span className='font-bold'>GoMyClass</span> : votre apprentissage à portée de click, partout,<br />
+                            à tout moment.
+                        </p>
                         <button className="bg-white text-[#21B573] px-8 py-3 rounded-full hover:bg-gray-100 transition-all font-semibold whitespace-nowrap">
                             Commencer maintenant →
                         </button>
@@ -24,7 +26,7 @@ const footer = () => {
 
 
             {/* Footer */}
-            <footer className="bg-black text-white py-16 px-4">
+            <footer className="bg-black text-white pt-16 pb-6 px-2">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 justify-center mb-8">
 
@@ -91,9 +93,6 @@ const footer = () => {
                                     <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
                                         <FaLinkedin className="w-7 h-7" />
                                     </a>
-                                    <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
-                                        <BsTwitterX className="w-7 h-7" />
-                                    </a>
                                 </div>
 
                                 {/* Second row: 3 icons */}
@@ -105,7 +104,7 @@ const footer = () => {
                                         <FaTiktok className="w-7 h-7" />
                                     </a>
                                     <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
-                                        <FaTelegram className="w-7 h-7" />
+                                        <BsTwitterX className="w-7 h-7" />
                                     </a>
                                 </div>
                             </div>
@@ -115,6 +114,10 @@ const footer = () => {
                                 <span>0607 <span className="text-white">77</span> 0607</span>
                             </div>
                         </div>
+                    </div>
+                    {/* Bottom Bar */}
+                    <div className="pt-6 text-center text-sm text-white">
+                        © 2025 GoMyClass. Tous droits réservés.
                     </div>
                 </div>
             </footer>
