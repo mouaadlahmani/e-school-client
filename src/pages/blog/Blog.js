@@ -5,7 +5,7 @@ import Footer from '../../components/footer';
 import { FiSearch } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
-const BASE_URL = "http://31.97.155.19:1337"
+const BASE_URL = "http://gomyclass.com"
 
 const Blog = () => {
     const [articles, setArticles] = useState([]);
