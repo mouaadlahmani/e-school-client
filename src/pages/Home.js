@@ -14,7 +14,7 @@ import { useSwipeable } from 'react-swipeable';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 
-const BASE_URL = 'http://gomyclass.com';
+const BASE_URL = 'http://31.97.155.19:1337';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

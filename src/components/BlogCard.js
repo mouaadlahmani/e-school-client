@@ -1,7 +1,7 @@
 import React from "react";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 
-const BASE_URL = "http://gomyclass.com"
+const BASE_URL = "http://31.97.155.19:1337"
 
 const BlogCard = ({ article, onEdit, onDelete }) => {
   return (
