@@ -8,7 +8,7 @@ import Footer from "../../components/footer";
 import AddArticle from "./AddArticle";
 import { CiCirclePlus } from "react-icons/ci";
 
-const BASE_URL = "http://localhost:1337"
+const BASE_URL = "http://31.97.155.19:1337"
 
 const Blogs = () => {
   const [articles, setArticles] = useState([]);

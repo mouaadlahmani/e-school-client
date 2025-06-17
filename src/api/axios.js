@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'https://e-school-api.vercel.app/api/',
+    baseURL: 'http://31.97.155.19:1337/api/',
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json'
