@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaWhatsapp } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 import { MdLocalPhone, MdLocationOn, MdMailOutline } from "react-icons/md";
 import { FaLinkedin, FaTelegram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa6";
@@ -56,12 +57,12 @@ const footer = () => {
                         <div className="text-center font-inter md:text-left">
                             <h4 className="font-semibold text-2xl mb-8 mt-2 text-white">Accès rapides</h4>
                             <ul className="space-y-3 text-sm text-gray-300">
-                                <li><a href="#" className="hover:text-white transition-colors">Formations</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Orientation</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Classe en direct</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Offres</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Inscription</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+                                <li><Link to="/formation" className="hover:text-white transition-colors">Formations</Link></li>
+                                <li><Link to="/orientation" className="hover:text-white transition-colors">Orientation</Link></li>
+                                <li><Link to="/direct" className="hover:text-white transition-colors">Classe en direct</Link></li>
+                                <li><Link to="/2bac" className="hover:text-white transition-colors">Offres</Link></li>
+                                <li><Link to="inscription" className="hover:text-white transition-colors">Inscription</Link></li>
+                                <li><Link to="blog" className="hover:text-white transition-colors">Blog</Link></li>
                             </ul>
                         </div>
 
@@ -69,11 +70,11 @@ const footer = () => {
                         <div className="text-center text-2xl font-inter md:text-left">
                             <h4 className="font-semibold mb-8 mt-2 text-white">Informations</h4>
                             <ul className="space-y-3 text-sm text-gray-300">
-                                <li><a href="#" className="hover:text-white transition-colors">À propos</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Conditions générales d'utilisation</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Politique de confidentialité</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Politique d'annulation</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
+                                <li><Link to="#" className="hover:text-white transition-colors">À propos</Link></li>
+                                <li><Link to="#" className="hover:text-white transition-colors">Conditions générales d'utilisation</Link></li>
+                                <li><Link to="#" className="hover:text-white transition-colors">Politique de confidentialité</Link></li>
+                                <li><Link to="#" className="hover:text-white transition-colors">Politique d'annulation</Link></li>
+                                <li><Link to="#" className="hover:text-white transition-colors">FAQ</Link></li>
                             </ul>
                         </div>
 
@@ -81,23 +82,23 @@ const footer = () => {
                         <div className="text-center text-2xl md:text-left">
                             <h4 className="font-semibold mb-8 mt-2 font-inter text-white">Restons connectés</h4>
 
-                            <div className="flex items-center gap-4 mb-6 flex-wrap">
-                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
+                            <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4 mb-6">
+                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl">
                                     <FaYoutube className="w-7 h-7" />
                                 </a>
-                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
+                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl">
                                     <ImFacebook2 className="w-7 h-7" />
                                 </a>
-                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
+                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl">
                                     <FaInstagram className="w-7 h-7" />
                                 </a>
-                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
+                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl">
                                     <FaLinkedin className="w-7 h-7" />
                                 </a>
-                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
+                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl">
                                     <BsTwitterX className="w-7 h-7" />
                                 </a>
-                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl flex justify-center">
+                                <a href="#" className="text-white hover:text-[#21B573] transition-colors text-2xl">
                                     <FaTiktok className="w-7 h-7" />
                                 </a>
                             </div>

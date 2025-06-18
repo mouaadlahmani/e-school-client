@@ -4,11 +4,11 @@ import Navbar from '../components/navbar';
 import Footer from '../components/footer';
 
 const Direct = () => {
-    const [selectedTrack, setSelectedTrack] = useState('2e baccalauréat');
+    const [selectedTrack, setSelectedTrack] = useState('2ᵉ baccalauréat');
 
     const tracks = [
-        '2e baccalauréat',
-        '1re baccalauréat',
+        '2ᵉ baccalauréat',
+        '1ʳᵉ baccalauréat',
         'Tronc commun',
         'Collège'
     ];
@@ -107,14 +107,14 @@ const Direct = () => {
 
             <div className="mx-auto p-6 md:p-12">
                 {/* Track Selection */}
-                <div className="flex flex-wrap gap-3 mb-8">
+                <div className="flex justify-center font-semibold text-2xl flex-wrap gap-8 mb-16">
                     {tracks.map((track) => (
                         <button
                             key={track}
                             onClick={() => setSelectedTrack(track)}
-                            className={`px-6 py-2 rounded-full transition-colors ${selectedTrack === track
-                                ? 'bg-[#21B573] text-white'
-                                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                            className={`px-16 py-4 rounded-full transition-colors ${selectedTrack === track
+                                ? 'bg-[#21B573] text-black'
+                                : 'bg-[#D9D9D9] text-black hover:bg-gray-300'
                                 }`}
                         >
                             {track}

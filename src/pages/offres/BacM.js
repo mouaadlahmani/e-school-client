@@ -48,8 +48,12 @@ const BacM = () => {
                         <div className="w-10 h-10 mx-auto mb-3 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
                             <Check className="w-5 h-5 text-white" />
                         </div>
-                        <h3 className="text-lg font-bold text-gray-800 mb-1 group-hover:text-emerald-600 transition-colors duration-300">{title}</h3>
-                        <p className="text-xs text-gray-600 font-medium">{subtitle}</p>
+                        <h3 className="text-xl text-gray-800 mb-3 group-hover:text-emerald-600 transition-colors duration-300 leading-snug">
+                            <span className="font-ibm font-semibold">{title}:</span><br />
+                            <span className="font-inter font-bold">{subtitle}</span>
+                        </h3>
+                        <div className="w-full h-[1px] bg-black mb-5" />
+
                     </div>
 
                     <div className="text-center mb-5">
@@ -67,7 +71,7 @@ const BacM = () => {
                             </span>
                             <span className="text-sm text-gray-500 ml-1 font-medium">{period}</span>
                         </div>
-=                    </div>
+                    </div>
 
                     <div className="space-y-2">
                         {features.map((feature, featureIndex) => (
@@ -128,8 +132,8 @@ const BacM = () => {
                                 key={period}
                                 onClick={() => setSelectedPeriod(period)}
                                 className={`px-6 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${selectedPeriod === period
-                                        ? 'text-white shadow-md transform scale-105'
-                                        : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                                    ? 'text-white shadow-md transform scale-105'
+                                    : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
                                     }`}
                                 style={selectedPeriod === period ? { backgroundColor: '#21B573' } : {}}
                             >

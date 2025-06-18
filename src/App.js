@@ -30,6 +30,7 @@ import Blogs from './pages/admin/Blogs';
 import AddArticle from './pages/admin/AddArticle';
 import Inscrires from './pages/admin/Inscires';
 import Enseignant from './pages/Enseignant';
+import ScrollToTop from './components/ScrollToTop';
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -47,7 +48,7 @@ i18next.init({
 function App() {
   return (
     <>
-      <I18nextProvider i18n={i18next}>
+      <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/enseignant' element={<Enseignant />} />
@@ -80,7 +81,6 @@ function App() {
           <Route path='/title/:id' element={<Title />} />
           <Route path='/blog/:slug' element={<Article />} />
         </Routes>
-      </I18nextProvider >
     </>
   );
 }

@@ -30,26 +30,30 @@ const Bac = () => {
 
     const PricingCard = ({ title, subtitle, index }) => {
         const { price, period, oldPrice } = getPricing();
-        
+
         return (
-            <div 
+            <div
                 className="group relative bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 hover:scale-102 overflow-hidden"
-                style={{ 
+                style={{
                     animationDelay: `${index * 100}ms`,
                     animation: 'fadeInUp 0.6s ease-out forwards'
                 }}
             >
                 {/* Gradient overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-emerald-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
+
                 {/* Content */}
                 <div className="relative z-10">
                     <div className="text-center mb-5">
                         <div className="w-10 h-10 mx-auto mb-3 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
                             <Check className="w-5 h-5 text-white" />
                         </div>
-                        <h3 className="text-lg font-bold text-gray-800 mb-1 group-hover:text-emerald-600 transition-colors duration-300">{title}</h3>
-                        <p className="text-xs text-gray-600 font-medium">{subtitle}</p>
+                        <h3 className="text-xl text-gray-800 mb-3 group-hover:text-emerald-600 transition-colors duration-300 leading-snug">
+                            <span className="font-ibm font-semibold">{title}:</span><br />
+                            <span className="font-inter font-bold">{subtitle}</span>
+                        </h3>
+                        <div className="w-full h-[1px] bg-black mb-5" />
+
                     </div>
 
                     <div className="text-center mb-5">
@@ -71,8 +75,8 @@ const Bac = () => {
 
                     <div className="space-y-2">
                         {features.map((feature, featureIndex) => (
-                            <div 
-                                key={featureIndex} 
+                            <div
+                                key={featureIndex}
                                 className="flex items-start gap-2 group-hover:translate-x-1 transition-transform duration-300"
                                 style={{ transitionDelay: `${featureIndex * 50}ms` }}
                             >
@@ -86,7 +90,7 @@ const Bac = () => {
 
                     {/* Action button */}
                     <div className="mt-5 pt-4 border-t border-gray-100">
-                        <button 
+                        <button
                             className="w-full py-2 px-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-lg hover:from-green-600 hover:to-emerald-700 transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg text-sm"
                             style={{ backgroundColor: '#21B573' }}
                         >
@@ -127,11 +131,10 @@ const Bac = () => {
                             <button
                                 key={period}
                                 onClick={() => setSelectedPeriod(period)}
-                                className={`px-6 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
-                                    selectedPeriod === period
-                                        ? 'text-white shadow-md transform scale-105' 
-                                        : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
-                                }`}
+                                className={`px-6 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${selectedPeriod === period
+                                    ? 'text-white shadow-md transform scale-105'
+                                    : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                                    }`}
                                 style={selectedPeriod === period ? { backgroundColor: '#21B573' } : {}}
                             >
                                 {period}
