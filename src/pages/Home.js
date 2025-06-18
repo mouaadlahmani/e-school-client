@@ -14,7 +14,7 @@ import { useSwipeable } from 'react-swipeable';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 
-const BASE_URL = 'http://31.97.155.19:1337';
+const BASE_URL = 'https://gomyclassapi.site';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -293,10 +293,10 @@ const Home = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <h3 className="text-base font-semibold font-ibm text-gray-800 mb-2">
+                    <h3 className="text-base font-semibold text-base text-center md:text-lg font-inter text-gray-800 mb-2">
                       {advantage.title}
                     </h3>
-                    <p className="text-gray-600 text-sm font-ibm leading-relaxed">
+                    <p className="text-gray-600 text-sm text-base md:text-lg text-center font-ibm leading-relaxed">
                       {advantage.description}
                     </p>
                   </motion.div>

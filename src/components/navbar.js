@@ -53,9 +53,9 @@ const Navbar = () => {
           {/* Roles + Language */}
           <div className="flex items-center gap-4">
             <span className="flex space-x-6 font-semibold cursor-pointer">
-              <span className='font-bold'>Étudiant</span>
-              <span>Enseignant</span>
-              <span>Entreprise</span>
+              <Link to='/' className={`${currentPath === '/' ? 'font-bold' : ''}`}>Étudiant</Link>
+              <Link to='/enseignant' className={`${currentPath === '/enseignant' ? 'font-bold' : ''}`}>Enseignant</Link>
+              <Link to='/entreprise' className={`${currentPath === '/entreprise' ? 'font-bold' : ''}`}>Entreprise</Link>
             </span>
             <TbWorld className="w-6 h-6 text-white flex-shrink-0" />
           </div>

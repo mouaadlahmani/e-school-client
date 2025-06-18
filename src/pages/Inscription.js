@@ -5,6 +5,8 @@ import Footer from '../components/footer';
 import inscription from '../assets/images/inscription.png';
 import axios from "../api/axios";
 import { motion, AnimatePresence } from 'framer-motion';
+import 'react-phone-input-2/lib/style.css';
+import PhoneInput from 'react-phone-input-2';
 
 const Inscription = () => {
     const [formData, setFormData] = useState({
@@ -104,23 +106,45 @@ const Inscription = () => {
                         <p className="text-gray-900 mb-6 font-medium">Veuillez remplir et envoyer le formulaire suivant :</p>
 
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            {[
-                                { label: "Nom complet", name: "nomComplet", type: "text" },
-                                { label: "Numéro de téléphone", name: "telephone", type: "tel" },
-                                { label: "Adresse email", name: "email", type: "email" }
-                            ].map((input, idx) => (
-                                <motion.div key={input.name} variants={fadeInUp} custom={idx}>
-                                    <label className="block text-sm font-medium text-gray-900 mb-2">{input.label} :</label>
-                                    <input
-                                        type={input.type}
-                                        name={input.name}
-                                        value={formData[input.name]}
-                                        onChange={handleInputChange}
-                                        className="w-full px-3 py-2 bg-[#D9D9D96B] rounded-md focus:outline-none focus:ring-2 focus:ring-[#21B573]"
-                                        required={input.name === "telephone"}
-                                    />
-                                </motion.div>
-                            ))}
+                            <motion.div variants={fadeInUp} custom={0}>
+                                <label className="block text-sm font-medium text-gray-900 mb-2">Nom complet :</label>
+                                <input
+                                    type="text"
+                                    name="nomComplet"
+                                    value={formData.nomComplet}
+                                    onChange={handleInputChange}
+                                    className="w-full px-3 py-2 bg-[#D9D9D96B] rounded-md focus:outline-none focus:ring-2 focus:ring-[#21B573]"
+                                    required
+                                />
+                            </motion.div>
+
+                            <motion.div variants={fadeInUp} custom={1}>
+                                <label className="block text-sm font-medium text-gray-900 mb-2">Numéro de téléphone :</label>
+                                <PhoneInput
+                                    country={'ma'}
+                                    value={formData.telephone}
+                                    onChange={(phone) => setFormData(prev => ({ ...prev, telephone: phone }))}
+                                    inputClass="custom-phone-input"
+                                    containerClass="custom-phone-container"
+                                    buttonClass="custom-phone-button"
+                                    dropdownClass="custom-phone-dropdown"
+                                    inputProps={{
+                                        name: 'telephone',
+                                        required: true,
+                                    }}
+                                />
+                            </motion.div>
+
+                            <motion.div variants={fadeInUp} custom={2}>
+                                <label className="block text-sm font-medium text-gray-900 mb-2">Adresse email :</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    className="w-full px-3 py-2 bg-[#D9D9D96B] rounded-md focus:outline-none focus:ring-2 focus:ring-[#21B573]"
+                                />
+                            </motion.div>
 
                             <motion.div variants={fadeInUp}>
                                 <label className="block text-sm font-medium text-gray-900 mb-2">Niveau scolaire :</label>
@@ -141,31 +165,6 @@ const Inscription = () => {
                                                 className="mr-2 accent-[#21B573]"
                                             />
                                             {niveau}
-                                        </label>
-                                    ))}
-                                </div>
-                            </motion.div>
-
-                            <motion.div variants={fadeInUp}>
-                                <label className="block text-sm font-medium text-gray-900 mb-2">
-                                    Matière(s) choisie(s) : (uniquement pour Collège et Lycée)
-                                </label>
-                                <div className="space-y-2 text-sm">
-                                    {[
-                                        'Mathématiques', 'Physique-Chimie', 'Sciences de la Vie et de la Terre',
-                                        'Sciences de l\'ingénieur', 'Français', 'Anglais',
-                                        'Économie et Gestion', 'Comptabilité'
-                                    ].map((matiere) => (
-                                        <label key={matiere} className="flex items-center">
-                                            <input
-                                                type="checkbox"
-                                                name="matieres"
-                                                value={matiere}
-                                                checked={formData.matieres.includes(matiere)}
-                                                onChange={handleInputChange}
-                                                className="mr-2 accent-[#21B573]"
-                                            />
-                                            {matiere}
                                         </label>
                                     ))}
                                 </div>

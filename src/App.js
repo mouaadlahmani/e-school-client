@@ -29,6 +29,7 @@ import FormationInscrire from './pages/FormationInscrire';
 import Blogs from './pages/admin/Blogs';
 import AddArticle from './pages/admin/AddArticle';
 import Inscrires from './pages/admin/Inscires';
+import Enseignant from './pages/Enseignant';
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -49,6 +50,7 @@ function App() {
       <I18nextProvider i18n={i18next}>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/enseignant' element={<Enseignant />} />
           <Route path='/inscription' element={<Inscription />} />
           <Route path='/inscrire' element={<FormationInscrire />} />
           <Route path='/applies' element={<Applies />} />
