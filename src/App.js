@@ -31,6 +31,7 @@ import AddArticle from './pages/admin/AddArticle';
 import Inscrires from './pages/admin/Inscires';
 import Enseignant from './pages/Enseignant';
 import ScrollToTop from './components/ScrollToTop';
+import NotFound from './components/NotFound';
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -49,38 +50,39 @@ function App() {
   return (
     <>
       <ScrollToTop />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/enseignant' element={<Enseignant />} />
-          <Route path='/inscription' element={<Inscription />} />
-          <Route path='/inscrire' element={<FormationInscrire />} />
-          <Route path='/applies' element={<Applies />} />
-          <Route path='/inscriptions' element={<Inscrires />} />
-          <Route path='/formation' element={<Formation />} />
-          <Route path='/orientation' element={<Orientation />} />
-          <Route path='/direct' element={<Direct />} />
-          <Route path='/2bac' element={<Bac />} />
-          <Route path='/1bac' element={<BacM />} />
-          <Route path='/tronccommun' element={<Tronc />} />
-          <Route path='/college' element={<College />} />
-          <Route path='/councours' element={<Councours />} />
-          <Route path='/blog' element={<Blog />} />
-          <Route path='/blogs' element={<Blogs />} />
-          <Route path='/admin' element={<Login />} />
-          <Route path='/addarticle' element={<AddArticle />} />
-          <Route path='/dashboard' element={
-            <ProtectedRoute roles={['admin']}>
-              <Dashboard />
-            </ProtectedRoute>
-          }></Route>
-          <Route path='/countries' element={<Countries />} />
-          <Route path='/country/:id' element={<Country />} />
-          <Route path='/country/edit/:id' element={<AdminCountryManagement />} />
-          <Route path='/level/:id' element={<Levels />} />
-          <Route path='/subjects/:id' element={<Subject />} />
-          <Route path='/title/:id' element={<Title />} />
-          <Route path='/blog/:slug' element={<Article />} />
-        </Routes>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/enseignant' element={<Enseignant />} />
+        <Route path='/inscription' element={<Inscription />} />
+        <Route path='/inscrire' element={<FormationInscrire />} />
+        <Route path='/applies' element={<Applies />} />
+        <Route path='/inscriptions' element={<Inscrires />} />
+        <Route path='/formation' element={<Formation />} />
+        <Route path='/orientation' element={<Orientation />} />
+        <Route path='/direct' element={<Direct />} />
+        <Route path='/2bac' element={<Bac />} />
+        <Route path='/1bac' element={<BacM />} />
+        <Route path='/tronccommun' element={<Tronc />} />
+        <Route path='/college' element={<College />} />
+        <Route path='/councours' element={<Councours />} />
+        <Route path='/blog' element={<Blog />} />
+        <Route path='/blogs' element={<Blogs />} />
+        <Route path='/admin' element={<Login />} />
+        <Route path='/addarticle' element={<AddArticle />} />
+        <Route path='/dashboard' element={
+          <ProtectedRoute roles={['admin']}>
+            <Dashboard />
+          </ProtectedRoute>
+        }></Route>
+        <Route path='/countries' element={<Countries />} />
+        <Route path='/country/:id' element={<Country />} />
+        <Route path='/country/edit/:id' element={<AdminCountryManagement />} />
+        <Route path='/level/:id' element={<Levels />} />
+        <Route path='/subjects/:id' element={<Subject />} />
+        <Route path='/title/:id' element={<Title />} />
+        <Route path='/blog/:slug' element={<Article />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </>
   );
 }
