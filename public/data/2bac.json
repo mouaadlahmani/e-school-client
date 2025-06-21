@@ -1,0 +1,237 @@
+{
+   "planning": [
+    {
+      "title": "Semestre 1 : du 1er septembre au 31 décembre 2025",
+      "points": [
+        "Cours + exercices + quiz + examens des années précédentes +",
+        "Évaluations mensuelles",
+        "→ 1 examen blanc en fin de semestre"
+      ]
+    },
+    {
+      "title": "Semestre 2 : du 1er janvier au 30 avril 2026",
+      "points": [
+        "Cours + exercices + quiz + examens des années précédentes +",
+        "Évaluations mensuelles",
+        "→ 2 examens blancs en fin de semestre"
+      ]
+    },
+    {
+      "title": "À partir du 1 mai 2026",
+      "points": [
+        "* Préparation intensive à l'examen régional et national",
+        "* Préparation aux concours post-bac (pour les bacheliers)"
+      ]
+    },
+    {
+      "title": "l'École d'Été : du 1er juillet au 31 août 2026",
+      "points": []
+    }
+  ],
+  "2ᵉ année Bac sciences expérimentales: PC & SVT": {
+    "subjects": "Maths (4h) - Physique Chimie (4h) - Science de Vie et de la Terre (4h) - Français (3h) - Anglais (3h)",
+    "schedule": [
+  {
+    "time": "1ʳᵉ séance (2h)",
+    "lundi": { "Gr 1": "Maths", "Gr 2": "Svt" },
+    "mardi": { "Gr 3": "Maths", "Gr 4": "Svt" },
+    "mercredi": { "Gr 1": "Pc", "Gr 2": "Svt" },
+    "jeudi": { "Gr 3": "Pc", "Gr 4": "Svt" },
+    "vendredi": { "Gr 1": "Maths", "Gr 2": "Pc" },
+    "samedi": { "Gr 3": "Maths", "Gr 4": "Pc" }
+  },
+  {
+    "time": "2ᵉ séance (2h)",
+    "lundi": { "Gr 1": "Svt", "Gr 2": "Maths" },
+    "mardi": { "Gr 3": "Svt", "Gr 4": "Maths" },
+    "mercredi": { "Gr 1": "Svt", "Gr 2": "Pc" },
+    "jeudi": { "Gr 3": "Svt", "Gr 4": "Pc" },
+    "vendredi": { "Gr 1": "Pc", "Gr 2": "Maths" },
+    "samedi": { "Gr 3": "Pc", "Gr 4": "Maths" }
+  },
+  {
+    "time": "3ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "mardi": { "Gr 3": "Ang", "Gr 4": "Fr" },
+    "mercredi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "jeudi": { "Gr 3": "Ang", "Gr 4": "Fr" },
+    "vendredi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "samedi": { "Gr 3": "Ang", "Gr 4": "Fr" }
+  },
+  {
+    "time": "4ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "mardi": { "Gr 3": "Fr", "Gr 4": "Ang" },
+    "mercredi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "jeudi": { "Gr 3": "Fr", "Gr 4": "Ang" },
+    "vendredi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "samedi": { "Gr 3": "Fr", "Gr 4": "Ang" }
+  }
+]
+
+  },
+  "2ᵉ année Bac sciences mathématiques: SMA & SMB": {
+    "subjects": "Maths (6h) - Physique Chimie (4h) - Science de Vie et de la Terre (2h) - SI (2h) - Français (3h) - Anglais (3h)",
+"schedule": [
+  {
+    "time": "1ʳᵉ séance (2h)",
+    "lundi": { "Gr 1": "Maths", "Gr 2": "Pc" },
+    "mardi": { "Gr 3": "Maths", "Gr 4": "Pc" },
+    "mercredi": { "Gr 1": "Maths", "Gr 2": "Svt" },
+    "jeudi": { "Gr 3": "Maths", "Gr 4": "SI" },
+    "vendredi": { "Gr 1": "Maths", "Gr 2": "Pc" },
+    "samedi": { "Gr 3": "Maths", "Gr 4": "Pc" }
+  },
+  {
+    "time": "2ᵉ séance (2h)",
+    "lundi": { "Gr 1": "Pc", "Gr 2": "Maths" },
+    "mardi": { "Gr 3": "Pc", "Gr 4": "Maths" },
+    "mercredi": { "Gr 1": "Svt", "Gr 2": "Maths" },
+    "jeudi": { "Gr 3": "SI", "Gr 4": "Maths" },
+    "vendredi": { "Gr 1": "Pc", "Gr 2": "Maths" },
+    "samedi": { "Gr 3": "Pc", "Gr 4": "Maths" }
+  },
+  {
+    "time": "3ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "mardi": { "Gr 3": "Ang", "Gr 4": "Fr" },
+    "mercredi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "jeudi": { "Gr 3": "Ang", "Gr 4": "Fr" },
+    "vendredi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "samedi": { "Gr 3": "Ang", "Gr 4": "Fr" }
+  },
+  {
+    "time": "4ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "mardi": { "Gr 3": "Fr", "Gr 4": "Ang" },
+    "mercredi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "jeudi": { "Gr 3": "Fr", "Gr 4": "Ang" },
+    "vendredi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "samedi": { "Gr 3": "Fr", "Gr 4": "Ang" }
+  }
+]
+  },
+  "2ᵉ année Bac sciences et technologies: STM & STE": {
+    "subjects": "SI (4h) - Maths (4h) - Physique Chimie (4h) - Français (3h) - Anglais (3h)",
+    "schedule": [
+  {
+    "time": "1ʳᵉ séance (2h)",
+    "lundi": { "Gr 1": "Maths", "Gr 2": "SI" },
+    "mardi": { "Gr 3": "Maths", "Gr 4": "SI" },
+    "mercredi": { "Gr 1": "Pc", "Gr 2": "SI" },
+    "jeudi": { "Gr 3": "Pc", "Gr 4": "SI" },
+    "vendredi": { "Gr 1": "Maths", "Gr 2": "Pc" },
+    "samedi": { "Gr 3": "Maths", "Gr 4": "Pc" }
+  },
+  {
+    "time": "2ᵉ séance (2h)",
+    "lundi": { "Gr 1": "SI", "Gr 2": "Maths" },
+    "mardi": { "Gr 3": "SI", "Gr 4": "Maths" },
+    "mercredi": { "Gr 1": "SI", "Gr 2": "Pc" },
+    "jeudi": { "Gr 3": "SI", "Gr 4": "Pc" },
+    "vendredi": { "Gr 1": "Pc", "Gr 2": "Maths" },
+    "samedi": { "Gr 3": "Pc", "Gr 4": "Maths" }
+  },
+  {
+    "time": "3ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "mardi": { "Gr 3": "Ang", "Gr 4": "Fr" },
+    "mercredi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "jeudi": { "Gr 3": "Ang", "Gr 4": "Fr" },
+    "vendredi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "samedi": { "Gr 3": "Ang", "Gr 4": "Fr" }
+  },
+  {
+    "time": "4ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "mardi": { "Gr 3": "Fr", "Gr 4": "Ang" },
+    "mercredi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "jeudi": { "Gr 3": "Fr", "Gr 4": "Ang" },
+    "vendredi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "samedi": { "Gr 3": "Fr", "Gr 4": "Ang" }
+  }
+]
+  },
+  "2ᵉ année Bac sciences économiques et gestion: SE & SGC": {
+    "subjects": "Économie & Gestion (6h) – Comptabilité (4h) - Maths (2h) - Français (3h) - Anglais (3h)",
+      "schedule": [
+  {
+    "time": "1ʳᵉ séance (2h)",
+    "lundi": { "Gr 1": "Eco", "Gr 2": "Compta" },
+    "mardi": { "Gr 3": "Eco", "Gr 4": "Compta" },
+    "mercredi": { "Gr 1": "Gestion", "Gr 2": "Compta" },
+    "jeudi": { "Gr 3": "Gestion", "Gr 4": "Compta" },
+    "vendredi": { "Gr 1": "Maths", "Gr 2": "Eco" },
+    "samedi": { "Gr 3": "Maths", "Gr 4": "Eco" }
+  },
+  {
+    "time": "2ᵉ séance (2h)",
+    "lundi": { "Gr 1": "Compta", "Gr 2": "Eco" },
+    "mardi": { "Gr 3": "Compta", "Gr 4": "Eco" },
+    "mercredi": { "Gr 1": "Compta", "Gr 2": "Gestion" },
+    "jeudi": { "Gr 3": "Compta", "Gr 4": "Gestion" },
+    "vendredi": { "Gr 1": "Eco", "Gr 2": "Maths" },
+    "samedi": { "Gr 3": "Eco", "Gr 4": "Maths" }
+  },
+  {
+    "time": "3ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "mardi": { "Gr 3": "Ang", "Gr 4": "Fr" },
+    "mercredi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "jeudi": { "Gr 3": "Ang", "Gr 4": "Fr" },
+    "vendredi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "samedi": { "Gr 3": "Ang", "Gr 4": "Fr" }
+  },
+  {
+    "time": "4ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "mardi": { "Gr 3": "Fr", "Gr 4": "Ang" },
+    "mercredi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "jeudi": { "Gr 3": "Fr", "Gr 4": "Ang" },
+    "vendredi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "samedi": { "Gr 3": "Fr", "Gr 4": "Ang" }
+  }
+]
+  },
+  "2ᵉ année Bac Arts Appliqués": {
+    "subjects": "Design (6h) - Infographie (4h) - Informatique (2h) - Français (3h) - Anglais (3h)",
+    "schedule": [
+  {
+    "time": "1ʳᵉ séance (2h)",
+    "lundi": { "Gr 1": "Design" },
+    "mardi": { "Gr 1": null },
+    "mercredi": { "Gr 1": "Design" },
+    "jeudi": { "Gr 1": null },
+    "vendredi": { "Gr 1": "Design" },
+    "samedi": { "Gr 1": null }
+  },
+  {
+    "time": "2ᵉ séance (2h)",
+    "lundi": { "Gr 1": "Infographie" },
+    "mardi": { "Gr 1": null },
+    "mercredi": { "Gr 1": "Infographie" },
+    "jeudi": { "Gr 1": null},
+    "vendredi": { "Gr 1": "Infographie" },
+    "samedi": { "Gr 1": null }
+  },
+  {
+    "time": "3ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Ang" },
+    "mardi": { "Gr 1": null },
+    "mercredi": { "Gr 1": "Ang" },
+    "jeudi": { "Gr 1": null },
+    "vendredi": { "Gr 1": "Ang" },
+    "samedi": { "Gr 1": null }
+  },
+  {
+    "time": "4ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Fr"  },
+    "mardi": { "Gr 1": null },
+    "mercredi": { "Gr 1": "Fr" },
+    "jeudi": { "Gr 1": null },
+    "vendredi": { "Gr 1": "Fr" },
+    "samedi": { "Gr 1": null }
+  }
+]
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "planning": [
+    {
+      "title": "Semestre 1 : du 1er septembre au 31 décembre 2025",
+      "points": [
+        "Cours + exercices + quiz + examens des années précédentes +",
+        "évaluations mensuelles"
+      ]
+    },
+    {
+      "title": "Semestre 2 : du 1er janvier au 30 mai 2026",
+      "points": [
+        "Cours + exercices + quiz + examens des années précédentes +",
+        "évaluations mensuelles"
+      ]
+    },
+    {
+      "title": "l’École d’Été : du 1er juillet au 31 août 2026",
+      "points": []
+    }
+  ],
+  "2ᵉ année Bac sciences expérimentales: PC & SVT": {
+    "subjects": "Maths (4h) - Physique Chimie (4h) - Science de Vie et de la Terre (4h) - Français (3h) - Anglais (3h)",
+    "schedule": [
+  {
+    "time": "1ʳᵉ séance (2h)",
+    "lundi": { "Gr 1": "Maths", "Gr 2": "Svt" },
+    "mardi": { "Gr 3": "Maths", "Gr 4": "Svt" },
+    "mercredi": { "Gr 1": "Pc", "Gr 2": "Svt" },
+    "jeudi": { "Gr 3": "Pc", "Gr 4": "Svt" },
+    "vendredi": { "Gr 1": "Maths", "Gr 2": "Pc" },
+    "samedi": { "Gr 3": "Maths", "Gr 4": "Pc" }
+  },
+  {
+    "time": "2ᵉ séance (2h)",
+    "lundi": { "Gr 1": "Svt", "Gr 2": "Maths" },
+    "mardi": { "Gr 3": "Svt", "Gr 4": "Maths" },
+    "mercredi": { "Gr 1": "Svt", "Gr 2": "Pc" },
+    "jeudi": { "Gr 3": "Svt", "Gr 4": "Pc" },
+    "vendredi": { "Gr 1": "Pc", "Gr 2": "Maths" },
+    "samedi": { "Gr 3": "Pc", "Gr 4": "Maths" }
+  },
+  {
+    "time": "3ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "mardi": { "Gr 3": "Ang", "Gr 4": "Fr" },
+    "mercredi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "jeudi": { "Gr 3": "Ang", "Gr 4": "Fr" },
+    "vendredi": { "Gr 1": "Ang", "Gr 2": "Fr" },
+    "samedi": { "Gr 3": "Ang", "Gr 4": "Fr" }
+  },
+  {
+    "time": "4ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "mardi": { "Gr 3": "Fr", "Gr 4": "Ang" },
+    "mercredi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "jeudi": { "Gr 3": "Fr", "Gr 4": "Ang" },
+    "vendredi": { "Gr 1": "Fr", "Gr 2": "Ang" },
+    "samedi": { "Gr 3": "Fr", "Gr 4": "Ang" }
+  }
+]
+
+  },
+  "3ᵉ Année Collégiale - 3AC": {
+    "subjects": "Maths (4h) – Pc & Svt (2h) - Français (3h) - Anglais (3h)",
+    "schedule": [
+  {
+    "time": "1ʳᵉ séance (1h)",
+    "lundi": { "Gr 1": "Maths" },
+    "mardi": { "Gr 2": "Maths" },
+    "mercredi": { "Gr 1": "Pc/Svt" },
+    "jeudi": { "Gr 2": "Pc/Svt" },
+    "vendredi": { "Gr 1": "Maths" },
+    "samedi": { "Gr 2": "Maths" }
+  },
+  {
+    "time": "2ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Maths" },
+    "mardi": { "Gr 2": "Maths" },
+    "mercredi": { "Gr 1": "Pc/Svt" },
+    "jeudi": { "Gr 2": "Pc/Svt" },
+    "vendredi": { "Gr 1": "Maths" },
+    "samedi": { "Gr 2": "Maths" }
+  },
+  {
+    "time": "3ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Fr" },
+    "mardi": { "Gr 2": "Fr" },
+    "mercredi": { "Gr 1": "Fr" },
+    "jeudi": { "Gr 2": "Fr" },
+    "vendredi": { "Gr 1": "Fr" },
+    "samedi": { "Gr 2": "Fr" }
+  },
+  {
+    "time": "4ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Ang" },
+    "mardi": { "Gr 2": "Ang" },
+    "mercredi": { "Gr 1": "Ang" },
+    "jeudi": { "Gr 2": "Ang" },
+    "vendredi": { "Gr 1": "Ang" },
+    "samedi": { "Gr 2": "Ang" }
+  }
+]
+
+  },
+  "2ᵉ Année Collégiale - 2AC": {
+    "subjects": "Maths (4h) – Pc & Svt (2h) - Français (3h) - Anglais(3h)",
+    "schedule": [
+  {
+    "time": "1ʳᵉ séance (1h)",
+    "lundi": { "Gr 1": "Maths" },
+    "mardi": { "Gr 1": null },
+    "mercredi": { "Gr 1": "Pc/Svt" },
+    "jeudi": { "Gr 1": null },
+    "vendredi": { "Gr 1": "Maths" },
+    "samedi": { "Gr 1": null }
+  },
+  {
+    "time": "2ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Maths" },
+    "mardi": { "Gr 1": null },
+    "mercredi": { "Gr 1": "Pc/Svt" },
+    "jeudi": { "Gr 1": null },
+    "vendredi": { "Gr 1": "Maths" },
+    "samedi": { "Gr 1": null }
+  },
+  {
+    "time": "3ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Fr" },
+    "mardi": { "Gr 1": null },
+    "mercredi": { "Gr 1": "Fr" },
+    "jeudi": { "Gr 1": null },
+    "vendredi": { "Gr 1": "Fr" },
+    "samedi": { "Gr 1": null }
+  },
+  {
+    "time": "4ᵉ séance (1h)",
+    "lundi": { "Gr 1": "Ang" },
+    "mardi": { "Gr 1": null },
+    "mercredi": { "Gr 1": "Ang" },
+    "jeudi": { "Gr 1": null },
+    "vendredi": { "Gr 1": "Ang" },
+    "samedi": { "Gr 1": null }
+  }
+]
+  },
+  "1ʳᵉ Année Collégiale - 1AC": {
+    "subjects": "Maths (4h) – Pc & Svt (2h) - Français (3h) - Anglais (3h)",
+     "schedule": [
+  {
+    "time": "1ʳᵉ séance (1h)",
+    "lundi": { "Gr 1": null },
+    "mardi": { "Gr 1": "Maths" },
+    "mercredi": { "Gr 1": null },
+    "jeudi": { "Gr 1": "Pc/Svt" },
+    "vendredi": { "Gr 1": null },
+    "samedi": { "Gr 1": "Maths" }
+  },
+  {
+    "time": "2ᵉ séance (1h)",
+    "lundi": { "Gr 1": null },
+    "mardi": { "Gr 1": "Maths" },
+    "mercredi": { "Gr 1": null },
+    "jeudi": { "Gr 1": "Pc/Svt" },
+    "vendredi": { "Gr 1": null },
+    "samedi": { "Gr 1": "Maths" }
+  },
+  {
+    "time": "3ᵉ séance (1h)",
+    "lundi": { "Gr 1": null },
+    "mardi": { "Gr 1": "Fr" },
+    "mercredi": { "Gr 1": null },
+    "jeudi": { "Gr 1": "Fr" },
+    "vendredi": { "Gr 1": null },
+    "samedi": { "Gr 1": "Fr" }
+  },
+  {
+    "time": "4ᵉ séance (1h)",
+    "lundi": { "Gr 1": null },
+    "mardi": { "Gr 1": "Ang" },
+    "mercredi": { "Gr 1": null },
+    "jeudi": { "Gr 1": "Ang" },
+    "vendredi": { "Gr 1": null },
+    "samedi": { "Gr 1": "Ang" }
+  }
+]
+  }
+}

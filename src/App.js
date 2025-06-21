@@ -1,17 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from "../src/protectedRoutes/ProtectedRoutes"
 import Home from './pages/Home';
-import Country from './pages/Country';
-import Levels from './pages/Levels';
-import Subject from './pages/Subject';
-import Title from './pages/Title';
 import Dashboard from './pages/dashboard';
-import Countries from './pages/admin/Countries';
-import AdminCountryManagement from './pages/admin/AdminCountryManagement';
 import i18next from 'i18next';
 import global_ar from "../src/translitions/ar/global.json";
 import global_fr from "../src/translitions/fr/global.json";
-import { I18nextProvider } from 'react-i18next';
 import Login from './pages/admin/login';
 import Formation from './pages/Formation';
 import Orientation from './pages/Orientation';
@@ -74,12 +67,6 @@ function App() {
             <Dashboard />
           </ProtectedRoute>
         }></Route>
-        <Route path='/countries' element={<Countries />} />
-        <Route path='/country/:id' element={<Country />} />
-        <Route path='/country/edit/:id' element={<AdminCountryManagement />} />
-        <Route path='/level/:id' element={<Levels />} />
-        <Route path='/subjects/:id' element={<Subject />} />
-        <Route path='/title/:id' element={<Title />} />
         <Route path='/blog/:slug' element={<Article />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
